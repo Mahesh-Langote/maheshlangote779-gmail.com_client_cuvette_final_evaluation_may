@@ -1,0 +1,10 @@
+.theme-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .theme-content {
+    display: flex;
+    flex: 1;
+  }

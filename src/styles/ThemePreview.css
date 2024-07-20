@@ -1,0 +1,44 @@
+.theme-preview-container {
+    flex: 1;
+    padding: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .preview-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .preview-message {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .assistant {
+    justify-content: flex-start;
+  }
+  
+  .human {
+    justify-content: flex-end;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #007BFF;
+    margin-right: 10px;
+  }
+  
+  .message-bubble {
+    background-color: #f1f1f1;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 70%;
+  }
+  
+  .human .message-bubble {
+    background-color: #007BFF;
+    color: white;
+  }

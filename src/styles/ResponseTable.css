@@ -1,0 +1,44 @@
+.response-table-container {
+    overflow-x: auto;
+    background-color: #1E1E1E;
+    border-radius: 8px;
+}
+
+.response-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.response-table th,
+.response-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #2C2C2C;
+}
+
+.response-table th {
+    background-color: #1E1E1E;
+    font-weight: normal;
+    color: #A0A0A0;
+    font-size: 14px;
+    position: sticky;
+    top: 0;
+}
+
+.response-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.response-table tbody tr:hover {
+    background-color: #252525;
+}
+
+.response-table td:first-child {
+    color: #A0A0A0;
+}
+
+/* Remove vertical lines */
+.response-table td,
+.response-table th {
+    border-right: 1px solid #2C2C2C;
+}

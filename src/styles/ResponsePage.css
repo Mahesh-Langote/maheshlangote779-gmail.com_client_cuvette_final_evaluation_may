@@ -1,0 +1,11 @@
+.response-page {
+    background-color: #121212;
+    min-height: 85vh;
+    color: white;
+    padding: 20px;
+}
+
+.response-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
