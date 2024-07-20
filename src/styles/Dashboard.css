@@ -1,0 +1,12 @@
+
+.dashboard {
+  background-color: #151515;
+  min-height: 100vh;
+  min-width: 100vw;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard-main {
+  padding: 20px;
+}
