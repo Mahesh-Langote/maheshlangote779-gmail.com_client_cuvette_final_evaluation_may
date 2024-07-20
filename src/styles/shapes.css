@@ -1,0 +1,37 @@
+.shapes .triangle {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    top: 50%;
+    left: 20%;
+    transform: translateY(-50%);
+  }
+  
+  .shapes .triangle-1 {
+    transform: translateY(-50%) rotate(-15deg);
+  }
+  
+  .shapes .triangle-2 {
+    transform: translateY(-50%) rotate(15deg);
+  }
+  
+  .shapes .circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: absolute;
+    opacity: 0.7;
+  }
+  
+  .shapes .top-right {
+    background-color: #ff4081;
+    top: 30px;
+    right: -100px;
+  }
+  
+  .shapes .bottom-left {
+    background-color: #ffc107;
+    bottom: -100px;
+    right: 20%;
+  }
+  

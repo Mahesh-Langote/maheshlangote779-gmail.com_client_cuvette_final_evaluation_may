@@ -1,0 +1,50 @@
+.auth-form label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .auth-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .auth-form p {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+  
+  .auth-form a {
+    color: #2196f3;
+    text-decoration: none;
+  }
+  
+  .error {
+    color: #ff4081;
+  }
+  
+  .error-message {
+    color: #ff4081;
+    font-size: 12px;
+    margin-top: -12px;
+    margin-bottom: 16px;
+  }
