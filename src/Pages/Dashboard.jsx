@@ -54,11 +54,7 @@ const Dashboard = () => {
       toast.success('Folder created successfully!');
     } catch (error) {
       console.error('Error creating folder:', error);
-      if (error.message.includes('already exists')) {
-        toast.error('Failed to create folder. Folder name already exists.');
-      } else {
-        toast.error('Failed to create folder. Please try again.');
-      }
+      toast.error('Failed to create folder. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -88,6 +84,26 @@ const Dashboard = () => {
     }
   };
 
+  const deleteForm = async (formId) => {
+    setIsLoading(true);
+    try {
+      // await authenticatedFetch(API_ENDPOINTS.apiFormsDelete/(formId), {
+      //   method: 'DELETE',
+      // });
+      await authenticatedFetch(API_ENDPOINTS.apiFormsDelete(formId), {
+        method: 'DELETE',
+      });
+
+
+      toast.success('Form deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting form:', error);
+      toast.error('Failed to delete form. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleFolderSelect = (folderId) => {
     setSelectedFolderId(folderId);
   };
@@ -109,21 +125,23 @@ const Dashboard = () => {
         {isLoading ? (
           <div className="loading">Loading...</div>
         ) : (
-          <CardGrid selectedFolderId={selectedFolderId} />
+          <CardGrid 
+            selectedFolderId={selectedFolderId} 
+            onDeleteForm={deleteForm}
+          />
         )}
       </main>
       {showCreateModal && (
         <CreateFolderModal
           onClose={() => setShowCreateModal(false)}
           onCreateFolder={createFolder}
-          isLoading={isLoading}
         />
       )}
       {showDeleteModal && (
         <DeleteConfirmationModal
           onConfirm={deleteFolder}
           onCancel={() => setShowDeleteModal(false)}
-          isLoading={isLoading}
+          message="Are you sure you want to delete this folder?"
         />
       )}
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />

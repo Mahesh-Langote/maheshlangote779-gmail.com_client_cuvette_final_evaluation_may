@@ -10,8 +10,9 @@ const API_ENDPOINTS = {
   apiFoldersPost: `${API_BASE_URL}/api/folders`,  
   apiFoldersDelete: (id) => `${API_BASE_URL}/api/folders/${id}`,
   apiFormsFolder: `${API_BASE_URL}/api/forms/folder`,
-  apiFormsGet: (id) => `${API_BASE_URL}/api/forms/${id}`,
-
+  apiFormsDelete: (id) => `${API_BASE_URL}/api/forms/${id}`,
+  apiForms: `${API_BASE_URL}/api/forms`,
+  
 };
 
 console.log('API_BASE_URL:', API_BASE_URL);
