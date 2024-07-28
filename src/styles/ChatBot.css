@@ -1,0 +1,118 @@
+.chatBot-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    color: black;
+  }
+
+  .chatBot-container {
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .chatBot-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .chatBot-container {
+      width: 100%;
+      height: 100vh;
+      border-radius: 0;
+    }
+  }
+
+  .chatBot-message {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .chatBot-bot {
+    justify-content: flex-start;
+  }
+  
+  .chatBot-user {
+    justify-content: flex-end;
+  }
+  
+  .chatBot-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #007bff;
+    margin-right: 10px;
+  }
+  
+  .chatBot-content {
+    background-color: #f1f0f0;
+    padding: 8px 12px;
+    border-radius: 18px;
+    max-width: 70%;
+    word-wrap: break-word;
+  }
+  
+  .chatBot-image, .chatBot-gif, .chatBot-video {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+
+  .chatBot-input-form {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+  }
+  
+  .chatBot-input, .chatBot-select {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  
+  .chatBot-send-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .chatBot-send-icon {
+    font-size: 18px;
+  }
+  
+  .chatBot-radio-group, .chatBot-checkbox-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chatBot-star-rating {
+    font-size: 24px;
+  }
+  
+  .chatBot-star-rating span {
+    cursor: pointer;
+  }
+  
+  .chatBot-star-rating span.active {
+    color: gold;
+  }

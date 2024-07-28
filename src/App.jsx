@@ -13,6 +13,7 @@ import './styles/main.css';
 import { setupAxiosInterceptors } from './utils/axiosConfig';
 import Home from './Pages';
 import UserProfile from './Pages/UserProfile';
+import ChatBot from './Pages/chatBot/chatBot';
 
 export default function App() {
   const [isLogin, setIsLogin] = useState(true);
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/theme/:formId" element={<ThemePage />} />
 
           <Route path='/response' element={<ResponsePage />} />
+          <Route path='/chat' element={<ChatBot />} />
         </Routes>
       </Router>
     </AuthProvider>
