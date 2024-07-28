@@ -12,9 +12,7 @@ const API_ENDPOINTS = {
   apiFormsFolder: `${API_BASE_URL}/api/forms/folder`,
   apiFormsDelete: (id) => `${API_BASE_URL}/api/forms/${id}`,
   apiForms: `${API_BASE_URL}/api/forms`,
-  
+  apiFormsById: (id) => `${API_BASE_URL}/api/forms/${id}`,
 };
-
-console.log('API_BASE_URL:', API_BASE_URL);
 
 export default API_ENDPOINTS;

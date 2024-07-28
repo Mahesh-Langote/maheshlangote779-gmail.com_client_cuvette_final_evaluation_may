@@ -1,5 +1,6 @@
 // components/CardGrid.js
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/CardGrid.css';
 import useAuthenticatedApi from '../utils/useAuthenticatedApi';
 import API_ENDPOINTS from '../config/api';
@@ -9,6 +10,7 @@ const CardGrid = ({ selectedFolderId, onDeleteForm }) => {
   const [forms, setForms] = useState([]);
   const [formToDelete, setFormToDelete] = useState(null);
   const { authenticatedFetch } = useAuthenticatedApi();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (selectedFolderId) {
@@ -48,19 +50,30 @@ const CardGrid = ({ selectedFolderId, onDeleteForm }) => {
     setFormToDelete(null);
   };
 
+  const handleOpenForm = (formId) => {
+    navigate(`/flow/${formId}`);
+  };
+
+  const handleCreateForm = () => {
+    navigate(`/flow?folderId=${selectedFolderId}`);
+  };
+
   return (
     <div className="card-grid">
-     <div className="card create-typebot" onClick={() => window.location.href = '/flow'}>
-  <span className="plus-icon">+</span>
-  <p>Create a typebot</p>
-</div>
+      <div className="card create-typebot" onClick={handleCreateForm}>
+        <span className="plus-icon">+</span>
+        <p>Create a typebot</p>
+      </div>
 
       {forms.map((form) => (
-        <div key={form.id} className="card new-form">
+        <div key={form.id} className="card new-form" onClick={() => handleOpenForm(form.id)}>
           <p>{form.title || 'Untitled Form'}</p>
           <span 
             className="delete-icon" 
-            onClick={() => handleDeleteClick(form.id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteClick(form.id);
+            }}
           >
             🗑
           </span>

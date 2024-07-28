@@ -1,8 +1,9 @@
+// components/FormHeader.js
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/FormHeader.css';
 
-function FormHeader() {
+function FormHeader({ formName, onSave, onFormNameChange }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,10 +25,16 @@ function FormHeader() {
 
   return (
     <header className="form-header">
-      <input type="text" placeholder="Enter Form Name" className="form-name-input" />
+      <input 
+        type="text" 
+        placeholder="Enter Form Name" 
+        className="form-name-input" 
+        value={formName} 
+        onChange={(e) => onFormNameChange(e.target.value)}
+      />
       <div className="header-tabs">
         <button 
-          className={`header-tab ${location.pathname === '/flow' ? 'active' : ''}`} 
+          className={`header-tab ${location.pathname.includes('/flow') ? 'active' : ''}`} 
           onClick={() => handleTabClick('Flow')}
         >
           Flow
@@ -47,8 +54,8 @@ function FormHeader() {
       </div>
       <div className="header-actions">
         <button className="action-button">Share</button>
-        <button className="action-button save">Save</button>
-        <button className="action-button close">✕</button>
+        <button className="action-button save" onClick={onSave}>Save</button>
+        <button className="action-button close" onClick={() => navigate('/dashboard')}>✕</button>
       </div>
     </header>
   );

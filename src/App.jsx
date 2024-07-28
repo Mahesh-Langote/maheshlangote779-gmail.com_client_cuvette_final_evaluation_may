@@ -38,6 +38,8 @@ export default function App() {
           } />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/flow" element={<FormBuilder />} />
+          <Route path="/flow/:formId" element={<FormBuilder />} />
+
           <Route path='/theme' element={<ThemePage />} />
           <Route path='/response' element={<ResponsePage />} />
         </Routes>

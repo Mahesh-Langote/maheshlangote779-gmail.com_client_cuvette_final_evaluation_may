@@ -1,25 +1,109 @@
-import React, { useState } from 'react';
+// Pages/FormBuilder.js
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import FormHeader from '../components/FormHeader';
 import Sidebar from '../components/Sidebar';
 import Canvas from '../components/Canvas';
 import '../styles/formBuilder.css';
+import useAuthenticatedApi from '../utils/useAuthenticatedApi';
+import API_ENDPOINTS from '../config/api';
 
 function FormBuilder() {
-  const [formElements, setFormElements] = useState([
-    { type: ' Start', id: 'start', label: 'Start' },
-   
-  ]);
+  const { formId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { authenticatedFetch } = useAuthenticatedApi();
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    fields: [],
+    background: 'Light',
+    folder: new URLSearchParams(location.search).get('folderId') || ''
+  });
+
+  useEffect(() => {
+    if (formId) {
+      fetchFormData();
+    }
+  }, [formId]);
+
+  const fetchFormData = async () => {
+    try {
+      const data = await authenticatedFetch(API_ENDPOINTS.apiFormsById(formId));
+      setFormData({
+        ...data,
+        fields: data.fields.map((field) => ({
+          ...field,
+          id: field._id,
+        }))
+      });
+    } catch (error) {
+      console.error('Error fetching form data:', error);
+    }
+  };
 
   const addElement = (elementType) => {
-    setFormElements([...formElements, { type: elementType, id: Date.now(), label: `${elementType} ${formElements.length + 1}` }]);
+    setFormData(prevData => ({
+      ...prevData,
+      fields: [
+        ...prevData.fields,
+        {
+          type: elementType,
+          id: Date.now(),
+          label: `New ${elementType}`,
+          required: false,
+          options: elementType === 'radio' ? ['Option 1'] : [],
+          errorMessage: `Please enter a valid ${elementType.toLowerCase()}`,
+        }
+      ]
+    }));
+  };
+
+  const saveForm = async () => {
+    try {
+      const dataToSend = {
+        ...formData,
+        fields: formData.fields.map(({ id, ...field }) => field) // Remove client-side id
+      };
+      if (formId) {
+        await authenticatedFetch(API_ENDPOINTS.apiFormsById(formId), {
+          method: 'PUT',
+          body: JSON.stringify(dataToSend),
+        });
+      } else {
+        await authenticatedFetch(API_ENDPOINTS.apiForms, {
+          method: 'POST',
+          body: JSON.stringify(dataToSend),
+        });
+      }
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Error saving form:', error);
+    }
+  };
+
+  const handleFormDataChange = (field, value) => {
+    setFormData(prevData => ({
+      ...prevData,
+      [field]: value
+    }));
   };
 
   return (
     <div className="form-builder">
-      <FormHeader />
+      <FormHeader 
+        formName={formData.title} 
+        onSave={saveForm} 
+        onFormNameChange={(value) => handleFormDataChange('title', value)}
+      />
       <div className="main-content">
         <Sidebar addElement={addElement} />
-        <Canvas elements={formElements} />
+        <Canvas 
+          elements={formData.fields} 
+          setFormData={setFormData}
+          description={formData.description}
+          onDescriptionChange={(value) => handleFormDataChange('description', value)}
+        />
       </div>
     </div>
   );
