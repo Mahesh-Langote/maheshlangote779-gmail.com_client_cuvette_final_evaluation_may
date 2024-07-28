@@ -1,41 +1,47 @@
-
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
-import LoginForm from './components/LoginForm';
-import SignupForm from './components/SignupForm';
+import { AuthProvider } from './context/AuthContext';
+import LoginForm from './Pages/LoginForm';
+import SignupForm from './Pages/SignupForm';
 import BackButton from './components/BackButton';
 import Shapes from './components/Shapes';
-import Dashboard from './components/Dashboard.jsx';
-import FormBuilder from './components/FormBuilder.jsx';
+import Dashboard from './Pages/Dashboard';
+import FormBuilder from './Pages/FormBuilder';
+import ThemePage from './Pages/ThemePage';
+import ResponsePage from './Pages/ResponsePage';
 import './styles/main.css';
-import ThemeSelector from './components/ThemeSelector.jsx';
-import ThemePage from './components/ThemePage.jsx';
-import ResponsePage from './components/ResponsePage.jsx';
-// import FormHeader from './components/FromHeader.jsx';
+import { setupAxiosInterceptors } from './utils/axiosConfig';
+import Home from './Pages';
+import UserProfile from './Pages/UserProfile';
 
 export default function App() {
   const [isLogin, setIsLogin] = useState(true);
+  setupAxiosInterceptors();
 
   const toggleForm = () => setIsLogin(!isLogin);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={
-          <div className="container">
-            <BackButton />
-            <Shapes />
-            <div className="auth-form-container">
-              {isLogin ? <LoginForm onToggle={toggleForm} /> : <SignupForm onToggle={toggleForm} />}
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<UserProfile />} />
+          
+          <Route path="/auth" element={
+            <div className="container">
+              <BackButton />
+              <Shapes />
+              <div className="auth-form-container">
+                {isLogin ? <LoginForm onToggle={toggleForm} /> : <SignupForm onToggle={toggleForm} />}
+              </div>
             </div>
-          </div>
-        } />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/flow" element={<FormBuilder />} />
-        <Route path='/theme' element={<ThemePage />} />
-        <Route path='/response' element={<ResponsePage />} />
-        
-      </Routes>
-    </Router>
+          } />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/flow" element={<FormBuilder />} />
+          <Route path='/theme' element={<ThemePage />} />
+          <Route path='/response' element={<ResponsePage />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }

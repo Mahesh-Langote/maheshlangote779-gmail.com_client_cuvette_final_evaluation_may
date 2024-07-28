@@ -1,8 +1,8 @@
 import React from 'react';
-import ResponseSummary from './ResponseSummary';
-import ResponseTable from './ResponseTable';
+import ResponseSummary from '../components/ResponseSummary';
+import ResponseTable from '../components/ResponseTable';
 import '../styles/ResponsePage.css';
-import FormHeader from './FormHeader';
+import FormHeader from '../components/FormHeader';
 
 function ResponsePage() {
   return (

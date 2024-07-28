@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import FormHeader from './FormHeader';
-import ThemeSelector from './ThemeSelector';
-import ThemePreview from './ThemePreview';
+import FormHeader from '../components/FormHeader';
+import ThemeSelector from '../components/ThemeSelector';
+import ThemePreview from '../components/ThemePreview';
 import '../styles/ThemePage.css';
 
 function ThemePage() {

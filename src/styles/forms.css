@@ -1,50 +1,76 @@
+.auth-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+}
+
 .auth-form label {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 8px;
-  }
-  
-  .auth-form input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 16px;
-    background-color: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 4px;
-    color: white;
-    font-size: 14px;
-  }
-  
-  .submit-btn {
-    width: 100%;
-    padding: 12px;
-    background-color: #2196f3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .auth-form p {
-    text-align: center;
-    margin-top: 16px;
-    font-size: 14px;
-  }
-  
-  .auth-form a {
-    color: #2196f3;
-    text-decoration: none;
-  }
-  
-  .error {
-    color: #ff4081;
-  }
-  
-  .error-message {
-    color: #ff4081;
-    font-size: 12px;
-    margin-top: -12px;
-    margin-bottom: 16px;
-  }
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 8px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.auth-form input.error {
+  border-color: #ff4081;
+}
+
+.input-group {
+  margin-bottom: 16px;
+  min-height: 70px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #1976d2;
+}
+
+.auth-form p {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #bbb;
+}
+
+.auth-form a {
+  color: #2196f3;
+  text-decoration: none;
+}
+
+.auth-form a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #ff4081;
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 0;
+  min-height: 18px;
+}

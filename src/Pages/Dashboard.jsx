@@ -1,10 +1,10 @@
 // components/Dashboard.js
 import React, { useState } from 'react';
-import Header from './Header';
-import ActionBar from './ActionBar';
-import CardGrid from './CardGrid';
-import CreateFolderModal from './CreateFolderModal';
-import DeleteConfirmationModal from './DeleteConfirmationModal';
+import Header from '../components/Header';
+import ActionBar from '../components/ActionBar';
+import CardGrid from '../components/CardGrid';
+import CreateFolderModal from '../components/CreateFolderModal';
+import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {

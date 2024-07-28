@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import FormHeader from './FormHeader';
-import Sidebar from './Sidebar';
-import Canvas from './Canvas';
+import FormHeader from '../components/FormHeader';
+import Sidebar from '../components/Sidebar';
+import Canvas from '../components/Canvas';
 import '../styles/formBuilder.css';
 
 function FormBuilder() {
