@@ -50,10 +50,11 @@ const CardGrid = ({ selectedFolderId, onDeleteForm }) => {
 
   return (
     <div className="card-grid">
-      <div className="card create-typebot">
-        <span className="plus-icon">+</span>
-        <p>Create a typebot</p>
-      </div>
+     <div className="card create-typebot" onClick={() => window.location.href = '/flow'}>
+  <span className="plus-icon">+</span>
+  <p>Create a typebot</p>
+</div>
+
       {forms.map((form) => (
         <div key={form.id} className="card new-form">
           <p>{form.title || 'Untitled Form'}</p>
