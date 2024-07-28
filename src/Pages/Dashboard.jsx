@@ -13,22 +13,22 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-       <Header />
+      <Header />
       <main className="dashboard-main">
-      
-      <ActionBar 
-  onCreateFolder={() => setShowCreateModal(true)} 
-  onDeleteFolder={() => setShowDeleteModal(true)}
-/>
-         <CardGrid  />
+
+        <ActionBar
+          onCreateFolder={() => setShowCreateModal(true)}
+          onDeleteFolder={() => setShowDeleteModal(true)}
+        />
+        <CardGrid />
       </main>
       {showCreateModal && (
         <CreateFolderModal onClose={() => setShowCreateModal(false)} />
       )}
       {showDeleteModal && (
-        <DeleteConfirmationModal 
+        <DeleteConfirmationModal
           onConfirm={() => {
-            
+
             setShowDeleteModal(false);
           }}
           onCancel={() => setShowDeleteModal(false)}
