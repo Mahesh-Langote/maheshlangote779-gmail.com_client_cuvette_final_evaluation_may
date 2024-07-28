@@ -1,10 +1,10 @@
+// components/ThemePreview.js
 import React from 'react';
 import '../styles/ThemePreview.css';
 
 function ThemePreview({ theme }) {
   const getThemeColor = () => {
     switch (theme) {
-     
       case 'Light': return '#FFFFFF';
       case 'Dark': return '#1E1E1E';
       case 'Tail Blue': return '#5F9EA0';

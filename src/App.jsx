@@ -41,6 +41,8 @@ export default function App() {
           <Route path="/flow/:formId" element={<FormBuilder />} />
 
           <Route path='/theme' element={<ThemePage />} />
+          <Route path="/theme/:formId" element={<ThemePage />} />
+
           <Route path='/response' element={<ResponsePage />} />
         </Routes>
       </Router>

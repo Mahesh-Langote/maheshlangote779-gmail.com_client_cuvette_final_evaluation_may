@@ -17,7 +17,7 @@ function FormBuilder() {
     title: '',
     description: '',
     fields: [],
-    background: 'Light',
+    theme: 'Light',
     folder: new URLSearchParams(location.search).get('folderId') || ''
   });
 
@@ -35,7 +35,8 @@ function FormBuilder() {
         fields: data.fields.map((field) => ({
           ...field,
           id: field._id,
-        }))
+        })),
+        theme: data.theme || 'Light'
       });
     } catch (error) {
       console.error('Error fetching form data:', error);
@@ -43,19 +44,45 @@ function FormBuilder() {
   };
 
   const addElement = (elementType) => {
+    const newField = {
+      type: elementType,
+      id: Date.now(),
+      label: `New ${elementType}`,
+      required: false,
+      errorMessage: `Please enter a valid ${elementType.toLowerCase()}`,
+    };
+
+    switch (elementType) {
+      case 'Text':
+      case 'Number':
+      case 'Email':
+      case 'Phone':
+      case 'Date':
+         
+        break;
+      case 'Radio':
+      case 'Checkbox':
+      case 'Dropdown':
+        newField.options = ['Option 1'];
+        break;
+      case 'StarRating':
+        newField.starCount = 5;
+        break;
+      case 'WordRating':
+        newField.options = ['Poor', 'Fair', 'Good', 'Excellent'];
+        break;
+      case 'Image':
+      case 'Video':
+      case 'GIF':
+        newField.url = '';
+        break;
+      default:
+        break;
+    }
+
     setFormData(prevData => ({
       ...prevData,
-      fields: [
-        ...prevData.fields,
-        {
-          type: elementType,
-          id: Date.now(),
-          label: `New ${elementType}`,
-          required: false,
-          options: elementType === 'radio' ? ['Option 1'] : [],
-          errorMessage: `Please enter a valid ${elementType.toLowerCase()}`,
-        }
-      ]
+      fields: [...prevData.fields, newField]
     }));
   };
 

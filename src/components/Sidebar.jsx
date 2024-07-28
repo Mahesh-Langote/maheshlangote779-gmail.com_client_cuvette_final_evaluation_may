@@ -1,3 +1,4 @@
+
 // components/Sidebar.js
 import React from 'react';
 import '../styles/sidebar.css';
@@ -17,6 +18,8 @@ function Sidebar({ addElement }) {
     { type: 'Phone', icon: '📞' },
     { type: 'Date', icon: '📅' },
     { type: 'Radio', icon: '🔘' },
+    { type: 'Checkbox', icon: '☑️' },
+    { type: 'Dropdown', icon: '▼' },
     { type: 'StarRating', icon: '⭐' },
     { type: 'WordRating', icon: 'ABC' },
   ];

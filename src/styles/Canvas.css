@@ -1,3 +1,53 @@
+
+/* Add this to your Canvas.css file */
+
+.form-element {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+/* Add this to your Canvas.css file */
+
+.warning {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.element-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.remove-button {
+  background: none;
+  border: none;
+  color: #ff4d4d;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.remove-button:hover {
+  color: #ff0000;
+}
+
+.option-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.option-container input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
 .canvas {
   flex: 1;
   padding: 20px;

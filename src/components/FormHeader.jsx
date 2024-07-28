@@ -1,19 +1,20 @@
 // components/FormHeader.js
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import '../styles/FormHeader.css';
 
 function FormHeader({ formName, onSave, onFormNameChange }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const formId = location.pathname.split('/').pop();
 
   const handleTabClick = (tab) => {
     switch(tab) {
       case 'Flow':
-        navigate('/flow');
+        navigate(`/flow/${formId}`);
         break;
       case 'Theme':
-        navigate('/theme');
+        navigate(`/theme/${formId}`);
         break;
       case 'Response':
         navigate('/response');
@@ -40,7 +41,7 @@ function FormHeader({ formName, onSave, onFormNameChange }) {
           Flow
         </button>
         <button 
-          className={`header-tab ${location.pathname === '/theme' ? 'active' : ''}`} 
+          className={`header-tab ${location.pathname.includes('/theme') ? 'active' : ''}`} 
           onClick={() => handleTabClick('Theme')}
         >
           Theme

@@ -1,10 +1,9 @@
+// components/ThemeSelector.js
 import React from 'react';
 import '../styles/ThemeSelector.css';
 
 function ThemeSelector({ selectedTheme, setSelectedTheme }) {
   const themes = [
-   
-    
     { name: 'Light', color: '#FFFFFF' },
     { name: 'Dark', color: '#1E1E1E' },
     { name: 'Tail Blue', color: '#5F9EA0' },
