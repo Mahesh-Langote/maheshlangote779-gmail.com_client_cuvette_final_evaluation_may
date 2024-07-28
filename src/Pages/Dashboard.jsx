@@ -1,39 +1,132 @@
-// components/Dashboard.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from '../components/Header';
 import ActionBar from '../components/ActionBar';
 import CardGrid from '../components/CardGrid';
 import CreateFolderModal from '../components/CreateFolderModal';
 import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
+import API_ENDPOINTS from '../config/api';
+import { useAuth } from '../context/AuthContext';
+import useAuthenticatedApi from '../utils/useAuthenticatedApi';
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [folders, setFolders] = useState([]);
+  const [selectedFolderId, setSelectedFolderId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { isLoggedIn } = useAuth();
+  const { authenticatedFetch } = useAuthenticatedApi();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchFolders();
+    }
+  }, [isLoggedIn]);
+
+  const fetchFolders = async () => {
+    setIsLoading(true);
+    try {
+      const data = await authenticatedFetch(API_ENDPOINTS.apiFoldersGet);
+      setFolders(data);
+      if (data.length > 0 && !selectedFolderId) {
+        setSelectedFolderId(data[0]._id);
+      }
+    } catch (error) {
+      console.error('Error fetching folders:', error);
+      toast.error('Failed to fetch folders. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const createFolder = async (folderName) => {
+    setIsLoading(true);
+    try {
+      await authenticatedFetch(API_ENDPOINTS.apiFoldersPost, {
+        method: 'POST',
+        body: JSON.stringify({ name: folderName }),
+      });
+      await fetchFolders();
+      setShowCreateModal(false);
+      toast.success('Folder created successfully!');
+    } catch (error) {
+      console.error('Error creating folder:', error);
+      if (error.message.includes('already exists')) {
+        toast.error('Failed to create folder. Folder name already exists.');
+      } else {
+        toast.error('Failed to create folder. Please try again.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const deleteFolder = async () => {
+    if (selectedFolderId) {
+      setIsLoading(true);
+      try {
+        await authenticatedFetch(API_ENDPOINTS.apiFoldersDelete(selectedFolderId), {
+          method: 'DELETE',
+        });
+        await fetchFolders();
+        setShowDeleteModal(false);
+        toast.success('Folder deleted successfully!');
+        if (folders.length > 0) {
+          setSelectedFolderId(folders[0]._id);
+        } else {
+          setSelectedFolderId(null);
+        }
+      } catch (error) {
+        console.error('Error deleting folder:', error);
+        toast.error('Failed to delete folder. Please try again.');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const handleFolderSelect = (folderId) => {
+    setSelectedFolderId(folderId);
+  };
 
   return (
     <div className="dashboard">
       <Header />
       <main className="dashboard-main">
-
         <ActionBar
+          folders={folders}
+          selectedFolderId={selectedFolderId}
           onCreateFolder={() => setShowCreateModal(true)}
-          onDeleteFolder={() => setShowDeleteModal(true)}
+          onDeleteFolder={(id) => {
+            setSelectedFolderId(id);
+            setShowDeleteModal(true);
+          }}
+          onSelectFolder={handleFolderSelect}
         />
-        <CardGrid />
+        {isLoading ? (
+          <div className="loading">Loading...</div>
+        ) : (
+          <CardGrid selectedFolderId={selectedFolderId} />
+        )}
       </main>
       {showCreateModal && (
-        <CreateFolderModal onClose={() => setShowCreateModal(false)} />
+        <CreateFolderModal
+          onClose={() => setShowCreateModal(false)}
+          onCreateFolder={createFolder}
+          isLoading={isLoading}
+        />
       )}
       {showDeleteModal && (
         <DeleteConfirmationModal
-          onConfirm={() => {
-
-            setShowDeleteModal(false);
-          }}
+          onConfirm={deleteFolder}
           onCancel={() => setShowDeleteModal(false)}
+          isLoading={isLoading}
         />
       )}
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>
   );
 };

@@ -1,29 +1,47 @@
 // components/ActionBar.jsx
-import React, { useState } from 'react';
-import CreateFolderModal from './CreateFolderModal';
+import React, { useEffect, useState } from 'react';
 import '../styles/ActionBar.css';
 
-const ActionBar = ({ onCreateFolder, onDeleteFolder  }) => {
-  const [showCreateModal, setShowCreateModal] = useState(false);
+const ActionBar = ({ folders, onCreateFolder, onDeleteFolder, onSelectFolder }) => {
+  const [selectedFolderId, setSelectedFolderId] = useState(null);
+
+  useEffect(() => {
+    if (folders.length > 0 && !selectedFolderId) {
+      setSelectedFolderId(folders[0]._id);
+      onSelectFolder(folders[0]._id);
+    }
+  }, [folders, selectedFolderId, onSelectFolder]);
+
+  const handleFolderClick = (folderId) => {
+    setSelectedFolderId(folderId);
+    onSelectFolder(folderId);
+  };
 
   return (
     <div className="action-bar">
-      <button className="create-folder-btn" onClick={() => setShowCreateModal(true)}>
+      <button className="create-folder-btn" onClick={onCreateFolder}>
         <span className="folder-icon">📁</span>
         Create a folder
       </button>
-      {[1, 2, 3, 4].map((_, i) => (
-        <button key={i} className="network-btn">
-          Computer Networks
-          <span className="delete-icon" onClick={onDeleteFolder}>🗑</span>
+      {folders.map((folder) => (
+        <button 
+          key={folder._id} 
+          className={`network-btn ${selectedFolderId === folder._id ? 'selected' : ''}`}
+          onClick={() => handleFolderClick(folder._id)}
+        >
+          {folder.name}
+          <span 
+            className="delete-icon" 
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log('Deleting folder with ID:', folder._id);
+              onDeleteFolder(folder._id);
+            }}
+          >
+            🗑
+          </span>
         </button>
       ))}
-      {showCreateModal && (
-        <CreateFolderModal 
-          onClose={() => setShowCreateModal(false)} 
-          onCreateFolder={onCreateFolder}
-        />
-      )}
     </div>
   );
 };

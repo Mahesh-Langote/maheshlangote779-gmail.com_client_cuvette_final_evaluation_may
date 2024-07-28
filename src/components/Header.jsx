@@ -17,7 +17,7 @@ const Header = () => {
   };
 
   const handleSettings = () => {
-    navigate('/settings');  // Assuming you have a settings route
+    navigate('/profile');  // Assuming you have a settings route
   };
 
   return (
