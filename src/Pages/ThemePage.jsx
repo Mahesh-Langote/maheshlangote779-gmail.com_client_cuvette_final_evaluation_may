@@ -1,6 +1,6 @@
 // Pages/ThemePage.js
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import FormHeader from '../components/FormHeader';
 import ThemeSelector from '../components/ThemeSelector';
 import ThemePreview from '../components/ThemePreview';
@@ -11,15 +11,21 @@ import '../styles/ThemePage.css';
 function ThemePage() {
   const { formId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { authenticatedFetch } = useAuthenticatedApi();
   const [formData, setFormData] = useState({
     title: '',
-    background: 'Light' // Use 'background' instead of 'theme'
+    background: 'Light'
   });
+  const [isNewForm, setIsNewForm] = useState(false);
 
   useEffect(() => {
-    fetchFormData();
-  }, [formId]);
+    if (formId === 'new' || location.pathname.includes('/new')) {
+      setIsNewForm(true);
+    } else {
+      fetchFormData();
+    }
+  }, [formId, location]);
 
   const fetchFormData = async () => {
     try {
@@ -27,28 +33,53 @@ function ThemePage() {
       setFormData(data);
     } catch (error) {
       console.error('Error fetching form data:', error);
+      // If there's an error, we'll just use the default state
     }
   };
 
   const handleThemeChange = async (newTheme) => {
-    try {
-      const updatedFormData = { ...formData, background: newTheme };
-      await authenticatedFetch(API_ENDPOINTS.apiFormsById(formId), {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedFormData),
-      });
-      setFormData(updatedFormData);
-      console.log('Theme updated:', newTheme);
-    } catch (error) {
-      console.error('Error updating theme:', error);
+    if (isNewForm) {
+      setFormData(prevData => ({ ...prevData, background: newTheme }));
+    } else {
+      try {
+        const updatedFormData = { ...formData, background: newTheme };
+        await authenticatedFetch(API_ENDPOINTS.apiFormsById(formId), {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedFormData),
+        });
+        setFormData(updatedFormData);
+        console.log('Theme updated:', newTheme);
+      } catch (error) {
+        console.error('Error updating theme:', error);
+      }
     }
   };
 
-  const handleSave = () => {
-    navigate(`/flow/${formId}`);
+  const handleSave = async () => {
+    if (isNewForm) {
+      try {
+        const response = await authenticatedFetch(API_ENDPOINTS.apiForms, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+        const newForm = await response.json();
+        navigate(`/flow/${newForm._id}`);
+      } catch (error) {
+        console.error('Error creating new form:', error);
+      }
+    } else {
+      navigate(`/flow/${formId}`);
+    }
+  };
+
+  const handleFormNameChange = (newName) => {
+    setFormData(prevData => ({ ...prevData, title: newName }));
   };
 
   return (
@@ -56,7 +87,7 @@ function ThemePage() {
       <FormHeader 
         formName={formData.title}
         onSave={handleSave}
-        onFormNameChange={() => {}}
+        onFormNameChange={handleFormNameChange}
       />
       <div className="theme-content">
         <ThemeSelector 

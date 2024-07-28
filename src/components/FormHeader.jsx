@@ -26,28 +26,28 @@ function FormHeader({ formName, onSave, onFormNameChange }) {
 
   return (
     <header className="form-header">
-      <input 
-        type="text" 
-        placeholder="Enter Form Name" 
-        className="form-name-input" 
-        value={formName} 
+      <input
+        type="text"
+        placeholder="Enter Form Name"
+        className="form-name-input"
+        value={formName}
         onChange={(e) => onFormNameChange(e.target.value)}
       />
       <div className="header-tabs">
-        <button 
-          className={`header-tab ${location.pathname.includes('/flow') ? 'active' : ''}`} 
+        <button
+          className={`header-tab ${location.pathname.includes('/flow') ? 'active' : ''}`}
           onClick={() => handleTabClick('Flow')}
         >
           Flow
         </button>
-        <button 
-          className={`header-tab ${location.pathname.includes('/theme') ? 'active' : ''}`} 
+        <button
+          className={`header-tab ${location.pathname.includes('/theme') ? 'active' : ''}`}
           onClick={() => handleTabClick('Theme')}
         >
           Theme
         </button>
-        <button 
-          className={`header-tab ${location.pathname === '/response' ? 'active' : ''}`} 
+        <button
+          className={`header-tab ${location.pathname === '/response' ? 'active' : ''}`}
           onClick={() => handleTabClick('Response')}
         >
           Response
