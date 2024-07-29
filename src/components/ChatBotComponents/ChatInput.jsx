@@ -1,28 +1,76 @@
 import React, { useState } from 'react';
 
-function ChatInput({ onSendMessage, fieldType, options }) {
+function ChatInput({ onSendMessage, onSkip, field }) {
   const [input, setInput] = useState('');
+  const [error, setError] = useState('');
+
+  const validateInput = () => {
+    if (!field) return true; // No validation for greeting message
+
+    if (field.required && !input.trim()) {
+      setError('This field is required.');
+      return false;
+    }
+
+    switch (field.type) {
+      case 'Email':
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(input)) {
+          setError('Please enter a valid email address.');
+          return false;
+        }
+        break;
+      case 'Phone':
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(input)) {
+          setError('Please enter a valid 10-digit phone number.');
+          return false;
+        }
+        break;
+      case 'Number':
+        if (isNaN(input)) {
+          setError('Please enter a valid number.');
+          return false;
+        }
+        break;
+    }
+
+    setError('');
+    return true;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.trim()) {
+    if (validateInput()) {
       onSendMessage(input);
       setInput('');
     }
   };
 
   const renderInput = () => {
-    switch (fieldType) {
+    if (!field) {
+      return (
+        <input
+          type="text"
+          className="chatBot-input"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type your message..."
+        />
+      );
+    }
+
+    switch (field.type) {
       case 'Text':
       case 'Email':
       case 'Phone':
         return (
           <input
-            type={fieldType.toLowerCase()}
+            type={field.type.toLowerCase()}
             className="chatBot-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={`Enter ${fieldType}`}
+            placeholder={`Enter ${field.label}`}
           />
         );
       case 'Number':
@@ -32,7 +80,7 @@ function ChatInput({ onSendMessage, fieldType, options }) {
             className="chatBot-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Enter Number"
+            placeholder={`Enter ${field.label}`}
           />
         );
       case 'Date':
@@ -47,8 +95,8 @@ function ChatInput({ onSendMessage, fieldType, options }) {
       case 'Radio':
         return (
           <div className="chatBot-radio-group">
-            {options.map((option, index) => (
-              <label key={index}>
+            {field.options.map((option, index) => (
+              <label key={index} className="chatBot-radio-label">
                 <input
                   type="radio"
                   value={option}
@@ -63,8 +111,8 @@ function ChatInput({ onSendMessage, fieldType, options }) {
       case 'Checkbox':
         return (
           <div className="chatBot-checkbox-group">
-            {options.map((option, index) => (
-              <label key={index}>
+            {field.options.map((option, index) => (
+              <label key={index} className="chatBot-checkbox-label">
                 <input
                   type="checkbox"
                   value={option}
@@ -85,13 +133,13 @@ function ChatInput({ onSendMessage, fieldType, options }) {
         return (
           <div className="chatBot-star-rating">
             {[1, 2, 3, 4, 5].map((star) => (
-              <span
+              <button
                 key={star}
                 onClick={() => setInput(star.toString())}
                 className={star <= parseInt(input) ? 'active' : ''}
               >
-                ★
-              </span>
+                {star}
+              </button>
             ))}
           </div>
         );
@@ -103,7 +151,7 @@ function ChatInput({ onSendMessage, fieldType, options }) {
             onChange={(e) => setInput(e.target.value)}
           >
             <option value="">Select a rating</option>
-            {options.map((option, index) => (
+            {field.options.map((option, index) => (
               <option key={index} value={option}>{option}</option>
             ))}
           </select>
@@ -115,7 +163,7 @@ function ChatInput({ onSendMessage, fieldType, options }) {
             className="chatBot-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Enter your response"
+            placeholder={`Enter ${field.label}`}
           />
         );
     }
@@ -124,9 +172,17 @@ function ChatInput({ onSendMessage, fieldType, options }) {
   return (
     <form className="chatBot-input-form" onSubmit={handleSubmit}>
       {renderInput()}
-      <button type="submit" className="chatBot-send-button">
-        <span className="chatBot-send-icon">▶</span>
-      </button>
+      {error && <div className="chatBot-error">{error}</div>}
+      <div className="chatBot-button-group">
+        {field && !field.required && (
+          <button type="button" className="chatBot-skip-button" onClick={onSkip}>
+            Skip
+          </button>
+        )}
+        <button type="submit" className="chatBot-send-button">
+          <span className="chatBot-send-icon">▶</span>
+        </button>
+      </div>
     </form>
   );
 }

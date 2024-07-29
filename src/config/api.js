@@ -13,6 +13,8 @@ const API_ENDPOINTS = {
   apiFormsDelete: (id) => `${API_BASE_URL}/api/forms/${id}`,
   apiForms: `${API_BASE_URL}/api/forms`,
   apiFormsById: (id) => `${API_BASE_URL}/api/forms/${id}`,
+  apiSubmissions: `${API_BASE_URL}/api/submissions`,
+  apiGenerateUniqueId: (formId) => `${API_BASE_URL}/api/submissions/generate-unique-id/${formId}`,
 };
 
 export default API_ENDPOINTS;

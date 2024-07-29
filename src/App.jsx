@@ -46,6 +46,8 @@ export default function App() {
 
           <Route path='/response' element={<ResponsePage />} />
           <Route path='/chat' element={<ChatBot />} />
+           
+          <Route path="/api/forms/public/:formId" element={<ChatBot />} />
         </Routes>
       </Router>
     </AuthProvider>

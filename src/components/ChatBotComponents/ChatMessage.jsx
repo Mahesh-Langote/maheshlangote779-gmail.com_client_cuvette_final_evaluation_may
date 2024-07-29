@@ -1,4 +1,6 @@
-import React from 'react'; 
+
+// ChatMessage.jsx
+import React from 'react';
 
 function ChatMessage({ message }) {
   const renderContent = () => {

@@ -17,7 +17,7 @@ function FormBuilder() {
     title: '',
     description: '',
     fields: [],
-    theme: 'Light',
+    background: 'Light',
     folder: new URLSearchParams(location.search).get('folderId') || ''
   });
 
