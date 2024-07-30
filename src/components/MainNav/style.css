@@ -1,0 +1,176 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .mainNav-header-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+  }
+  
+  .mainNav-header {
+    max-width: 80rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .mainNav-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+  }
+  
+  .mainNav-logo-text {
+    font-size: 1.25rem;
+    margin-left: 0.5rem;
+  }
+  
+  .mainNav-mobile-menu-toggle {
+    display: none;
+  }
+  
+  .mainNav-desktop-nav {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .mainNav-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+  
+  .mainNav-btn-blue {
+    background-color: #3182ce;
+    color: white;
+  }
+  
+  .mainNav-btn-orange {
+    background-color: #ed8936;
+    color: white;
+  }
+  
+  .mainNav-btn-gray {
+    background-color: transparent;
+    color: #a0aec0;
+    border: 1px solid #a0aec0;
+  }
+  
+  /* Resources menu styles */
+  .mainNav-resources-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to bottom, #1a202c, #2d3748);
+    padding: 3rem 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mainNav-resources-menu.open {
+    display: block;
+  }
+  
+  .mainNav-resources-menu-content {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .mainNav-resources-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+  
+  .mainNav-resources-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+  
+  .mainNav-resources-item:hover {
+    background-color: rgba(160, 174, 192, 0.1);
+  }
+  
+  .mainNav-resources-icon {
+    font-size: 1.875rem;
+    color: #63b3ed;
+    margin-right: 0.75rem;
+  }
+  
+  .mainNav-resources-text dt {
+    display: flex;
+    align-items: center;
+  }
+  
+  .mainNav-resources-label {
+    font-weight: 600;
+    color: white;
+  }
+  
+  .mainNav-resources-chevron {
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+    transition: transform 0.2s;
+  }
+  
+  .mainNav-resources-item:hover .mainNav-resources-chevron {
+    transform: translateX(2px);
+  }
+  
+  .mainNav-resources-description {
+    color: #a0aec0;
+  }
+  
+  /* Mobile menu styles */
+  .mainNav-mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to bottom, #1a202c, #2d3748);
+    padding: 2.5rem 1.5rem;
+  }
+  
+  .mainNav-mobile-menu.open {
+    display: block;
+  }
+  
+  .mainNav-mobile-menu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .mainNav-resources-title {
+    font-weight: 700;
+    color: white;
+    margin-top: 1rem;
+  }
+  
+  /* Media queries */
+  @media (max-width: 768px) {
+    .mainNav-mobile-menu-toggle {
+      display: block;
+    }
+  
+    .mainNav-desktop-nav {
+      display: none;
+    }
+  }

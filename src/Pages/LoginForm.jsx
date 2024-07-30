@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import API_ENDPOINTS from '../config/api';
 import { useAuth } from '../context/AuthContext';
 
@@ -12,6 +12,7 @@ export default function LoginForm({ onToggle }) {
     password: '',
   });
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
 
   const handleChange = (e) => {
@@ -32,7 +33,10 @@ export default function LoginForm({ onToggle }) {
 
           login(response.data.token, userInfoResponse.data.name);
           toast.success('Login successful! Redirecting...', {
-            onClose: () => navigate('/')
+            onClose: () => {
+              const from = location.state?.from?.pathname || '/';
+              navigate(from, { replace: true });
+            }
           });
         } catch (userInfoError) {
           console.error('Error fetching user info:', userInfoError);
@@ -46,7 +50,6 @@ export default function LoginForm({ onToggle }) {
       toast.error(error.response?.data?.message || 'An error occurred during login');
     }
   };
-
   return (
     <>
       <form className="auth-form" onSubmit={handleSubmit}>

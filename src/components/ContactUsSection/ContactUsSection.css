@@ -1,0 +1,103 @@
+.contactUsSection {
+    padding: 80px 20px;
+    /* background-color: #f8f9fa; */
+    overflow: hidden;
+  }
+  
+  .contactUsSection__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .contactUsSection__content {
+    text-align: center;
+    z-index: 1;
+  }
+  
+  .contactUsSection__button {
+    background-color: #0052ff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .contactUsSection__button:hover {
+    background-color: #0043cc;
+  }
+  
+  .contactUsSection__text {
+    margin-top: 16px;
+    font-size: 14px;
+    color: white;
+  }
+  
+  .contactUsSection__shape {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+  }
+  
+  .contactUsSection__shape--left {
+    left: -100px;
+    bottom: 59px;
+    /* background-color: #ffa500; */ 
+  }
+  
+  .contactUsSection__shape--right {
+    right: 1px;
+    bottom: 34px;
+    /* background-color: #0052ff; */
+    /* border-radius: 50% 50% 0 50%; */ 
+  }
+  
+  @media (max-width: 768px) {
+    .contactUsSection__shape {
+      width: 150px;
+      height: 150px;
+    }
+  
+    .contactUsSection__shape--left {
+      left: -75px;
+      top: -25px;
+    }
+  
+    .contactUsSection__shape--right {
+      right: -75px;
+      bottom: -25px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .contactUsSection__shape {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .contactUsSection__shape--left {
+      left: -50px;
+      top: -25px;
+    }
+  
+    .contactUsSection__shape--right {
+      right: -50px;
+      bottom: -25px;
+    }
+  
+    .contactUsSection__button {
+      font-size: 16px;
+      padding: 10px 20px;
+    }
+  
+    .contactUsSection__text {
+      font-size: 12px;
+    }
+  }

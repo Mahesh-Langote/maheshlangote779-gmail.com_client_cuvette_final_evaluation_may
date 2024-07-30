@@ -14,14 +14,20 @@ function ChatbotForm({ formId }) {
   const [uniqueId, setUniqueId] = useState('');
   const [isGreetingReceived, setIsGreetingReceived] = useState(false);
   const [theme, setTheme] = useState('Light'); // Default theme
-  const messagesEndRef = useRef(null);
-
+  const messagesEndRef = useRef(null); 
+  const fetchedRef = useRef(false);
   const [formIdData, setFormIdData] = useState(null);
+
+  // useEffect(() => {
+  //   if (formId) {
+  //     fetchForm();
+  //     generateUniqueId();
+  //   }
+  // }, [formId]);
 
   useEffect(() => {
     if (formId) {
-      fetchForm();
-      generateUniqueId();
+      fetchFormAndUniqueId();
     }
   }, [formId]);
 
@@ -33,36 +39,52 @@ function ChatbotForm({ formId }) {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const generateUniqueId = async () => {
-    try {
-      const response = await axios.get(API_ENDPOINTS.apiGenerateUniqueId(formId));
-      setUniqueId(response.data.uniqueId);
-    } catch (error) {
-      console.error('Error generating unique ID:', error);
-      setMessages([{ type: 'bot', content: 'Error generating unique ID. Please try again later.' }]);
+  // const generateUniqueId = async () => {
+  //   try {
+  //     const response = await axios.get(API_ENDPOINTS.apiGenerateUniqueId(formId));
+  //     setUniqueId(response.data.uniqueId);
+  //   } catch (error) {
+  //     console.error('Error generating unique ID:', error);
+  //     setMessages([{ type: 'bot', content: 'Error generating unique ID. Please try again later.' }]);
+  //   }
+  // };
+  useEffect(() => {
+    if (formId && !fetchedRef.current) {
+      fetchFormAndUniqueId();
     }
-  };
-  const fetchForm = async () => {
+  }, [formId]);
+
+  const fetchFormAndUniqueId = async () => {
+    if (fetchedRef.current) return; // Exit if already fetched
+    fetchedRef.current = true;
+
     try {
-      const response = await axios.get(`http://localhost:5000/api/forms/public/${formId}`);
-      const formData = response.data;
+     
+      // Fetch form data
+      const formResponse = await axios.get(API_ENDPOINTS.apiFormsPublic(formId)); 
+      // const formResponse = await axios.get(`http://localhost:5000/api/forms/public/${formId}`);
+      const formData = formResponse.data;
       setForm(formData);
-      
-      // Use the id field, which should match what the backend expects
       setFormIdData(formData.id);
-      
       setTheme(formData.background || 'Light');
       
+      // Generate unique ID
+      const uniqueIdResponse = await axios.get(API_ENDPOINTS.apiGenerateUniqueId(formId));
+      setUniqueId(uniqueIdResponse.data.uniqueId);
+
+      // Set initial messages
       setMessages([
         { type: 'bot', content: 'Hello!' },
         { type: 'bot', content: `${formData.title}` },
         { type: 'bot', content: `Form Description: ${formData.description}` },
       ]);
-      
+
       console.log("Using form ID:", formData.id);
     } catch (error) {
-      console.error('Error fetching form:', error);
+      console.error('Error fetching form and unique ID:', error);
       setMessages([{ type: 'bot', content: 'Error loading the form. Please try again later.' }]);
+    } finally {
+      fetchedRef.current = true; // Ensure it's set to true even if there's an error
     }
   };
   const askNextQuestion = (index) => {

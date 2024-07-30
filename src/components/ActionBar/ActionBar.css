@@ -1,0 +1,41 @@
+ 
+.action-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding: 5px;
+  }
+  
+  .create-folder-btn, .network-btn {
+    background-color: #2a2a2a;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+  }
+  
+  .network-btn.selected {
+    background-color: #4a4a4a;
+    box-shadow: 0 0 0 2px #007bff;
+  }
+  
+  .folder-icon {
+    font-size: 16px;
+  }
+  
+  .delete-icon {
+    font-size: 20px;
+    color: #fa0909;
+  }
+  
+  .create-folder-btn:hover, .network-btn:hover {
+    background-color: #3a3a3a;
+  }

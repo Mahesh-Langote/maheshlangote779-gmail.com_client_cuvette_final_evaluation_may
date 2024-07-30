@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../components/Header';
-import ActionBar from '../components/ActionBar';
+import ActionBar from '../components/ActionBar/ActionBar';
 import CardGrid from '../components/CardGrid';
 import CreateFolderModal from '../components/CreateFolderModal';
 import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
@@ -11,7 +12,7 @@ import { useAuth } from '../context/AuthContext';
 import useAuthenticatedApi from '../utils/useAuthenticatedApi';
 import '../styles/Dashboard.css';
 
-const Dashboard = () => {
+const Dashboard = () => { 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [folders, setFolders] = useState([]);
@@ -25,7 +26,18 @@ const Dashboard = () => {
       fetchFolders();
     }
   }, [isLoggedIn]);
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  React.useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/auth', { state: { from: location }, replace: true });
+    }
+  }, [isLoggedIn, navigate, location]);
+
+  if (!isLoggedIn) {
+    return null; // or a loading spinner
+  } 
   const fetchFolders = async () => {
     setIsLoading(true);
     try {

@@ -1,0 +1,159 @@
+/* MainNav.css */
+.MainNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  /* background-color: #ffffff; */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.MainNav__logo {
+  display: flex;
+  align-items: center; /* This will vertically align the logo and text */
+}
+
+.MainNav__logo img {
+  height: 30px;
+  width: auto; /* Ensure the aspect ratio is maintained */
+}
+
+.MainNav__logo h4 {
+  margin: 0; /* Remove default margin */
+  margin-left: 10px; /* Add space between logo and text */
+  font-size: 1.2rem; /* Adjust font size as needed */
+  color: white; /* Adjust color as needed */
+}
+
+.MainNav__links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.MainNav__link {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: white; /* Changed from white to a darker color for better visibility */
+}
+
+.MainNav__link--signin {
+  background-color: transparent;
+  color: #3b82f6;
+  border: 1px solid;
+}
+
+.MainNav__link--create,
+.MainNav__link--logout {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.MainNav__greeting {
+  font-size: 1rem;
+  /* color: #333; */
+}
+
+.MainNav__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #3b82f6;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.MainNav__menuButton {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.MainNav__menuButton span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  position: absolute;
+  transition: all 0.3s ease;
+}
+
+.MainNav__menuButton span:first-child {
+  top: 0;
+}
+
+.MainNav__menuButton span:nth-child(2) {
+  top: 9px;
+}
+
+.MainNav__menuButton span:last-child {
+  bottom: 0;
+}
+
+.MainNav__menuButton.open span:first-child {
+  transform: rotate(45deg);
+  top: 9px;
+}
+
+.MainNav__menuButton.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.MainNav__menuButton.open span:last-child {
+  transform: rotate(-45deg);
+  bottom: 9px;
+}
+
+@media (max-width: 768px) {
+  .MainNav__links {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    padding: 4rem 1rem 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    transition: transform 0.3s ease;
+    transform: translateX(100%);
+  }
+
+  .MainNav__links--open {
+    display: flex;
+    transform: translateX(0);
+  }
+
+  .MainNav__menuButton {
+    display: block;
+  }
+
+  .MainNav__link {
+    font-size: 1.2rem;
+    /* padding: 0.75rem 0; */
+  }
+
+  .MainNav__greeting {
+    margin-top: 1rem;
+  }
+
+  .MainNav__avatar {
+    margin: 0.5rem 0;
+  }
+}

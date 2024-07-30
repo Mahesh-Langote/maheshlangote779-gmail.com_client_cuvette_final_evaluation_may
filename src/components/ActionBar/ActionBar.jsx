@@ -1,6 +1,6 @@
 // components/ActionBar.jsx
 import React, { useEffect, useState } from 'react';
-import '../styles/ActionBar.css';
+import './ActionBar.css';
 
 const ActionBar = ({ folders, onCreateFolder, onDeleteFolder, onSelectFolder }) => {
   const [selectedFolderId, setSelectedFolderId] = useState(null);

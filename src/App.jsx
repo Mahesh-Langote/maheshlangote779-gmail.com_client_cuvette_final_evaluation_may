@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import LoginForm from './Pages/LoginForm';
 import SignupForm from './Pages/SignupForm';
@@ -14,6 +14,7 @@ import { setupAxiosInterceptors } from './utils/axiosConfig';
 import Home from './Pages';
 import UserProfile from './Pages/UserProfile';
 import ChatBot from './Pages/chatBot/chatBot';
+import { useAuth } from './context/AuthContext';
 
 export default function App() {
   const [isLogin, setIsLogin] = useState(true);
@@ -40,15 +41,11 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/flow" element={<FormBuilder />} />
           <Route path="/flow/:formId" element={<FormBuilder />} />
-
           <Route path='/theme' element={<ThemePage />} />
           <Route path="/theme/:formId" element={<ThemePage />} />
-
           <Route path='/response' element={<ResponsePage />} />
           <Route path="/response/:formId" element={<ResponsePage />} />
-
           <Route path='/chat' element={<ChatBot />} />
-           
           <Route path="/api/forms/public/:formId" element={<ChatBot />} />
         </Routes>
       </Router>

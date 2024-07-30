@@ -1,4 +1,4 @@
-// utils/useAuthenticatedApi.js
+
 import { useAuth } from '../context/AuthContext';
 
 const useAuthenticatedApi = () => {
