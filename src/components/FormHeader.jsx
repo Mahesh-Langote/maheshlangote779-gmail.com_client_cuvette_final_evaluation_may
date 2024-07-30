@@ -1,13 +1,29 @@
-// components/FormHeader.js
-import React from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/FormHeader.css';
+import SharePopup from './SharePopup';
+import API_ENDPOINTS from '../config/api';
 
-function FormHeader({ formName, onSave, onFormNameChange }) {
+function FormHeader({ formName, onSave, onFormNameChange, authenticatedFetch }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [showSharePopup, setShowSharePopup] = useState(false);
+  const [shareLink, setShareLink] = useState('');
   const formId = location.pathname.split('/').pop();
 
+  const handleShare = async () => {
+    try {
+      const response = await authenticatedFetch(API_ENDPOINTS.apiFormsShare(formId), {
+        method: 'POST',
+      });
+      const data = await response;
+      console.log(data.shareableLink)
+      setShareLink(data.shareableLink);
+      setShowSharePopup(true);
+    } catch (error) {
+      console.error('Error generating share link:', error);
+    }
+  };
   const handleTabClick = (tab) => {
     switch(tab) {
       case 'Flow':
@@ -22,6 +38,7 @@ function FormHeader({ formName, onSave, onFormNameChange }) {
       default:
         navigate('/dashboard');
     }
+    
   };
 
   return (
@@ -54,11 +71,18 @@ function FormHeader({ formName, onSave, onFormNameChange }) {
         </button>
       </div>
       <div className="header-actions">
-        <button className="action-button">Share</button>
-        <button className="action-button save" onClick={onSave}>Save</button>
-        <button className="action-button close" onClick={() => navigate('/dashboard')}>✕</button>
-      </div>
-    </header>
+      <button className="action-button" onClick={handleShare}>Share</button>
+      <button className="action-button save" onClick={onSave}>Save</button>
+      <button className="action-button close" onClick={() => navigate('/dashboard')}>✕</button>
+    </div>
+    {showSharePopup && (
+      <SharePopup
+        formId={formId}
+        shareLink={shareLink}
+        onClose={() => setShowSharePopup(false)}
+      />
+    )}
+  </header>
   );
 }
 

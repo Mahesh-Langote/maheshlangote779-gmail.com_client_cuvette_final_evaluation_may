@@ -12,6 +12,7 @@ function FormBuilder() {
   const { formId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  
   const { authenticatedFetch } = useAuthenticatedApi();
   const [formData, setFormData] = useState({
     title: '',
@@ -116,24 +117,25 @@ function FormBuilder() {
     }));
   };
 
-  return (
-    <div className="form-builder">
-      <FormHeader 
-        formName={formData.title} 
-        onSave={saveForm} 
+  
+    return (
+      <div className="form-builder">
+         <FormHeader 
+        formName={formData.title}
+        onSave={saveForm}
         onFormNameChange={(value) => handleFormDataChange('title', value)}
+        authenticatedFetch={authenticatedFetch}
       />
-      <div className="main-content">
-        <Sidebar addElement={addElement} />
-        <Canvas 
-          elements={formData.fields} 
-          setFormData={setFormData}
-          description={formData.description}
-          onDescriptionChange={(value) => handleFormDataChange('description', value)}
-        />
+        <div className="main-content">
+          <Sidebar addElement={addElement} />
+          <Canvas 
+            elements={formData.fields} 
+            setFormData={setFormData}
+            description={formData.description}
+            onDescriptionChange={(value) => handleFormDataChange('description', value)}
+          />
+        </div>
       </div>
-    </div>
-  );
-}
-
+    );
+  }
 export default FormBuilder;

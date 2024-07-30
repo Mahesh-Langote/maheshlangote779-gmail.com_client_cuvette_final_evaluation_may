@@ -9,11 +9,14 @@ function ChatbotForm({ formId }) {
   const [form, setForm] = useState(null);
   const [currentFieldIndex, setCurrentFieldIndex] = useState(-1);
   const [responses, setResponses] = useState({});
+  // const [formIdData, setFormIdData] = useState(null);
   const [messages, setMessages] = useState([]);
   const [uniqueId, setUniqueId] = useState('');
   const [isGreetingReceived, setIsGreetingReceived] = useState(false);
   const [theme, setTheme] = useState('Light'); // Default theme
   const messagesEndRef = useRef(null);
+
+  const [formIdData, setFormIdData] = useState(null);
 
   useEffect(() => {
     if (formId) {
@@ -39,27 +42,29 @@ function ChatbotForm({ formId }) {
       setMessages([{ type: 'bot', content: 'Error generating unique ID. Please try again later.' }]);
     }
   };
-
   const fetchForm = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/api/forms/public/${formId}`);
-      setForm(response.data);
+      const formData = response.data;
+      setForm(formData);
       
-      // Set the theme based on the form's background
-      setTheme(response.data.background || 'Light');
-     
+      // Use the id field, which should match what the backend expects
+      setFormIdData(formData.id);
+      
+      setTheme(formData.background || 'Light');
+      
       setMessages([
         { type: 'bot', content: 'Hello!' },
-        { type: 'bot', content: `Form Title: ${response.data.title}` },
-        { type: 'bot', content: `Form Description: ${response.data.description}` },
-        { type: 'bot', content: 'Please send any greeting message to start the form.' },
+        { type: 'bot', content: `${formData.title}` },
+        { type: 'bot', content: `Form Description: ${formData.description}` },
       ]);
+      
+      console.log("Using form ID:", formData.id);
     } catch (error) {
       console.error('Error fetching form:', error);
       setMessages([{ type: 'bot', content: 'Error loading the form. Please try again later.' }]);
     }
   };
-
   const askNextQuestion = (index) => {
     if (form && form.fields && index < form.fields.length) {
       const field = form.fields[index];
@@ -80,7 +85,7 @@ function ChatbotForm({ formId }) {
 
   const handleUserResponse = async (response) => {
     setMessages(prev => [...prev, { type: 'user', content: response }]);
-
+  
     if (!isGreetingReceived) {
       setIsGreetingReceived(true);
       setMessages(prev => [...prev, { type: 'bot', content: "Great! Let's start with the form questions." }]);
@@ -90,13 +95,19 @@ function ChatbotForm({ formId }) {
       const currentField = form.fields[currentFieldIndex];
       setResponses(prev => ({ ...prev, [currentField._id]: response }));
       
-      await submitResponses([{ field: currentField.label, value: response }]);
+      try {
+        const submissionResponse = await submitResponses([{ field: currentField.label, value: response }]);
+        console.log("Submission successful:", submissionResponse);
+      } catch (error) {
+        console.error("Error during submission:", error);
+        setMessages(prev => [...prev, { type: 'bot', content: "There was an error submitting your response. Please try again." }]);
+        return; // Exit the function early if there's an error
+      }
       
       setCurrentFieldIndex(prev => prev + 1);
       askNextQuestion(currentFieldIndex + 1);
     }
   };
-
   const handleSkip = () => {
     if (form && form.fields && currentFieldIndex < form.fields.length) {
       const currentField = form.fields[currentFieldIndex];
@@ -108,21 +119,29 @@ function ChatbotForm({ formId }) {
   };
 
   const submitResponses = async (newResponses = []) => {
-    if (form) {
+    if (form && formIdData) {
       try {
+        console.log("Submitting form ID:", formIdData);
         const submissionData = {
-          formId: form._id,
+          formId: formIdData,  // This should now be the correct ID
           uniqueId: uniqueId,
           responses: newResponses
         };
-
-        await axios.post(API_ENDPOINTS.apiSubmissions, submissionData);
+  
+        console.log("Submission data:", submissionData);
+  
+        const response = await axios.post(API_ENDPOINTS.apiSubmissions, submissionData);
+        console.log("Submission response:", response.data);
+        return response.data;
       } catch (error) {
         console.error('Error submitting responses:', error);
+        throw error;
       }
+    } else {
+      console.error('Form or formIdData is not available');
+      throw new Error('Form or formIdData is not available');
     }
   };
-
   if (!form || !uniqueId) return <div className="chatBot-loading">Loading...</div>;
 
   return (
