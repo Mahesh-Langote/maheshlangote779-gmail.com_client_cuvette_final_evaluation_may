@@ -45,6 +45,8 @@ export default function App() {
           <Route path="/theme/:formId" element={<ThemePage />} />
 
           <Route path='/response' element={<ResponsePage />} />
+          <Route path="/response/:formId" element={<ResponsePage />} />
+
           <Route path='/chat' element={<ChatBot />} />
            
           <Route path="/api/forms/public/:formId" element={<ChatBot />} />

@@ -33,7 +33,7 @@ function FormHeader({ formName, onSave, onFormNameChange, authenticatedFetch }) 
         navigate(`/theme/${formId}`);
         break;
       case 'Response':
-        navigate('/response');
+        navigate(`/response/${formId}`);
         break;
       default:
         navigate('/dashboard');
@@ -64,11 +64,11 @@ function FormHeader({ formName, onSave, onFormNameChange, authenticatedFetch }) 
           Theme
         </button>
         <button
-          className={`header-tab ${location.pathname === '/response' ? 'active' : ''}`}
-          onClick={() => handleTabClick('Response')}
-        >
-          Response
-        </button>
+  className={`header-tab ${location.pathname.includes('/response') ? 'active' : ''}`}
+  onClick={() => handleTabClick('Response')}
+>
+  Response
+</button>
       </div>
       <div className="header-actions">
       <button className="action-button" onClick={handleShare}>Share</button>

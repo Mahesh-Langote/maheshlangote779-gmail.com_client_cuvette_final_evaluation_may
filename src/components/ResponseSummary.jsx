@@ -1,20 +1,24 @@
 import React from 'react';
 import '../styles/ResponseSummary.css';
 
-function ResponseSummary() {
+function ResponseSummary({ submissions }) {
+  const totalSubmissions = submissions.length;
+  const completedSubmissions = submissions.filter(sub => sub.responses.length > 0).length;
+  const completionRate = totalSubmissions > 0 ? (completedSubmissions / totalSubmissions * 100).toFixed(2) : 0;
+
   return (
     <div className="response-summary">
       <div className="summary-item">
         <h2>Views</h2>
-        <p>6</p>
+        <p>{totalSubmissions}</p>
       </div>
       <div className="summary-item">
         <h2>Starts</h2>
-        <p>3</p>
+        <p>{completedSubmissions}</p>
       </div>
       <div className="summary-item">
         <h2>Completion rate</h2>
-        <p>33%</p>
+        <p>{completionRate}%</p>
       </div>
     </div>
   );

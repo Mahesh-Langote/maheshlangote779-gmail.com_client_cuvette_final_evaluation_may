@@ -16,6 +16,8 @@ const API_ENDPOINTS = {
   apiSubmissions: `${API_BASE_URL}/api/submissions`,
   apiGenerateUniqueId: (formId) => `${API_BASE_URL}/api/submissions/generate-unique-id/${formId}`,
   apiFormsShare: (id) => `${API_BASE_URL}/api/forms/${id}/share`,
+  apiSubmissionsFormSubmissions: (formId) => `${API_BASE_URL}/api/submissions/form-submissions/${formId}`,
+
 
 };
 
