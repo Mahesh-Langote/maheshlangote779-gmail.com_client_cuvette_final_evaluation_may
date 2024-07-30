@@ -1,0 +1,57 @@
+.modal-overlay {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal {
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+  }
+  
+  .modal h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  
+  .modal input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #3a3a3a;
+    border: none;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .btn-primary, .btn-secondary {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: #0066ff;
+    color: white;
+  }
+  
+  .btn-secondary {
+    background-color: transparent;
+    color: white;
+  }

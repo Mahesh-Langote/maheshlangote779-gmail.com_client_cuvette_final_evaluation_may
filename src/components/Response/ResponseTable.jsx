@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/ResponseTable.css';
+import './ResponseTable.css';
 
 function ResponseTable({ submissions }) {
   const formatDate = (dateString) => {

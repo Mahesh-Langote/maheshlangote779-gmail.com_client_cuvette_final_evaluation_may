@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import '../styles/FormHeader.css';
-import SharePopup from './SharePopup';
-import API_ENDPOINTS from '../config/api';
+import './FormHeader.css';
+import SharePopup from '../PopUp/SharePopup';
+import API_ENDPOINTS from '../../config/api';
 
 function FormHeader({ formName, onSave, onFormNameChange, authenticatedFetch }) {
   const navigate = useNavigate();
@@ -73,7 +73,7 @@ function FormHeader({ formName, onSave, onFormNameChange, authenticatedFetch }) 
       <div className="header-actions">
       <button className="action-button" onClick={handleShare}>Share</button>
       <button className="action-button save" onClick={onSave}>Save</button>
-      <button className="action-button close" onClick={() => navigate('/dashboard')}>✕</button>
+      <button className="action-button close" onClick={() => navigate('/')}>✕</button>
     </div>
     {showSharePopup && (
       <SharePopup

@@ -21,6 +21,7 @@
   .DetailSection__button {
     background-color: #3b82f6;
     color: white;
+    text-decoration: none;
     border: none;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
@@ -35,6 +36,7 @@
   
   .DetailSection__content {
     position: relative;
+    top: 100px;
   }
   
   .DetailSection__shapes {
@@ -48,17 +50,17 @@
   
   .DetailSection__triangle {
     position: absolute;
-    top: -292px;
+    position: absolute;
+    top: -396px;
     left: -100px;
-    /* width: 150px; */
-    /* height: 150px; */
-    /* background-color: #fb923c; */ 
+    opacity: 0.5;
   }
   
   .DetailSection__arc {
     position: absolute;
-    top: -296px;
+    top: -396px;
     right: -87px;
+    opacity: 0.5;
     /* width: 200px; */
     /* height: 200px; */
     /* border: 40px solid #3b82f6; */

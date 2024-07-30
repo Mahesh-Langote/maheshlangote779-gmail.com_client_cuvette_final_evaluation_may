@@ -1,0 +1,105 @@
+.LogOut__button{
+    background-color: #3b82f6;
+    color: white;
+    text-decoration: none;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.LogOut__modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .LogOut__modalContent {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+  }
+  
+  .LogOut__modalTitle {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .LogOut__modalText {
+    margin-bottom: 1.5rem;
+    color: #666;
+  }
+  
+  .LogOut__modalActions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .LogOut__modalButton {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .LogOut__modalButtonPrimary {
+    background-color: #e53935;
+    color: white;
+  }
+  
+  .LogOut__modalButtonPrimary:hover {
+    background-color: #c62828;
+  }
+  
+  .LogOut__modalButtonSecondary {
+    background-color: #f5f5f5;
+    color: #333;
+  }
+  
+  .LogOut__modalButtonSecondary:hover {
+    background-color: #e0e0e0;
+  }
+  
+  @keyframes LogOut__fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .LogOut__modalOverlay {
+    animation: LogOut__fadeIn 0.3s ease;
+  }
+  
+  @keyframes LogOut__slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  .LogOut__modalContent {
+    animation: LogOut__slideIn 0.3s ease;
+  }
+  
+  @media (max-width: 480px) {
+    .LogOut__modalContent {
+      padding: 1.5rem;
+    }
+  
+    .LogOut__modalButton {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+    }
+  }

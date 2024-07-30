@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'; 
+import { Link,useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import LogoutButton from '../../components/LogoutButton';
 import './MainNav.css';
@@ -8,6 +8,7 @@ import logo from '../../assets/images/logo.svg';
 const MainNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isLoggedIn, userName, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -40,8 +41,12 @@ const MainNav = () => {
         ) : (
           <>
             <Link to="/auth" className="MainNav__link MainNav__link--signin" onClick={toggleMenu}>Sign in</Link>
-            <button className="MainNav__link MainNav__link--create">Create a FormBot</button>
-          </>
+            <button 
+      onClick={() => navigate('/workspace')} 
+      className="MainNav__link MainNav__link--create"
+    >
+      Create a FormBot
+    </button> </>
         )}
       </div>
     </nav>

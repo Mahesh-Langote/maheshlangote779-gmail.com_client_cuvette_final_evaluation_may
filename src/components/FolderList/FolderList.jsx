@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/FolderList.css';
+import './FolderList.css';
 
 function FolderList({ folders, onDeleteFolder }) {
   return (

@@ -1,6 +1,6 @@
 // components/ThemeSelector.js
 import React from 'react';
-import '../styles/ThemeSelector.css';
+import './ThemeSelector.css';
 
 function ThemeSelector({ selectedTheme, setSelectedTheme }) {
   const themes = [

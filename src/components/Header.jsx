@@ -13,11 +13,11 @@ const Header = () => {
 
   const handleLogout = async () => {
     await logout();
-    navigate('/');  // Redirect to home page after logout
+    navigate('/');   
   };
 
   const handleSettings = () => {
-    navigate('/profile');  // Assuming you have a settings route
+    navigate('/profile');   
   };
 
   return (

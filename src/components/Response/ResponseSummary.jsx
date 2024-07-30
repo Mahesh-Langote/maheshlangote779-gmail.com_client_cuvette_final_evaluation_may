@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/ResponseSummary.css';
+import './ResponseSummary.css';
 
 function ResponseSummary({ submissions }) {
   const totalSubmissions = submissions.length;

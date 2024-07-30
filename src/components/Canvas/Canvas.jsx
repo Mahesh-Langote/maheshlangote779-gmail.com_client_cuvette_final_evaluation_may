@@ -1,6 +1,6 @@
-// components/Canvas.js
+ 
 import React, { useState } from 'react';
-import '../styles/Canvas.css';
+import './Canvas.css';
 
 function Canvas({ elements, setFormData, description, onDescriptionChange }) {
   const [warning, setWarning] = useState('');

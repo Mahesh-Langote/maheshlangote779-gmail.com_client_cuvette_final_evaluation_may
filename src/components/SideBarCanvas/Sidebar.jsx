@@ -1,7 +1,7 @@
 
 // components/Sidebar.js
 import React from 'react';
-import '../styles/sidebar.css';
+import './sidebar.css';
 
 function Sidebar({ addElement }) {
   const bubbles = [

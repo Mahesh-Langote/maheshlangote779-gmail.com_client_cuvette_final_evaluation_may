@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import API_ENDPOINTS from '../config/api';
-import { useAuth } from '../context/AuthContext';
-import Navbar from '../components/Navbar';
+import { useAuth } from '../context/AuthContext'; 
 import '../styles/UserProfile.css';
+import MainNav from '../components/MainNav/MainNav';
+import { FaUser, FaEnvelope, FaMoon, FaSun, FaBriefcase } from 'react-icons/fa';
 
 export default function UserProfile() {
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [redirect, setRedirect] = useState(false);
   const { isLoggedIn } = useAuth();
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       if (!isLoggedIn) {
-        setError('User is not logged in');
-        setLoading(false);
+        setRedirect(true);
         return;
       }
 
@@ -34,28 +35,55 @@ export default function UserProfile() {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user info:', error);
-        setError('Failed to fetch user information');
-        setLoading(false);
+        setRedirect(true);
       }
     };
 
     fetchUserInfo();
   }, [isLoggedIn]);
 
-  if (loading) return <div className="user-profile loading">Loading...</div>;
-  if (error) return <div className="user-profile error">{error}</div>;
-  if (!userInfo) return <div className="user-profile error">No user information available</div>;
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  const getInitials = (name) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
+  if (redirect) {
+    return <Navigate to="/" />;
+  }
+
+  if (loading) return <div className="UserProfile__loading">Loading...</div>;
+  if (!userInfo) return <Navigate to="/" />;
 
   return (
-    <div className="profile-page">
-      <Navbar />
-      <div className="user-profile">
-        <h2>User Profile</h2>
-        <div className="profile-info">
-          <p><strong>Name:</strong> {userInfo.name}</p>
-          <p><strong>Email:</strong> {userInfo.email}</p>
+    <div className={`UserProfile__page ${darkMode ? 'UserProfile__darkMode' : ''}`}>
+      <MainNav />
+      <div className="UserProfile__container">
+        <div className="UserProfile__header">
+          <div className="UserProfile__avatar">
+            {getInitials(userInfo.name)}
+          </div>
+          <h2 className="UserProfile__name">{userInfo.name}</h2>
+          <button className="UserProfile__themeToggle" onClick={toggleDarkMode}>
+            {darkMode ? <FaSun /> : <FaMoon />}
+          </button>
         </div>
-        <Link to="/edit-profile" className="edit-profile-btn">Edit Profile</Link>
+        <div className="UserProfile__info">
+          <div className="UserProfile__infoItem">
+            <FaUser />
+            <p>{userInfo.name}</p>
+          </div>
+          <div className="UserProfile__infoItem">
+            <FaEnvelope />
+            <p>{userInfo.email}</p>
+          </div>
+        </div>
+        <Link to="/workspace" className="UserProfile__workspaceBtn">
+          <FaBriefcase />
+          Go to Your Workspace
+        </Link>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 // components/ThemePreview.js
 import React from 'react';
-import '../styles/ThemePreview.css';
+import './ThemePreview.css';
 
 function ThemePreview({ theme }) {
   const getThemeColor = () => {

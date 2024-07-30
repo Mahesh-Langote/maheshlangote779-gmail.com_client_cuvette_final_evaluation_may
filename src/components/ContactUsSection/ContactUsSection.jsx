@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import './ContactUsSection.css';
 
 import triangleImage from '../../assets/images/triangle.svg';
@@ -11,7 +12,7 @@ const ContactUsSection = () => {
         <div className="contactUsSection__content">
           <h2>Improve conversion and user  engagement <br />
           with FormBots </h2>
-          <button className="contactUsSection__button" onClick={() => window.location.href = '/dashboard'}>Create a FormBot</button>
+          <Link to="/workspace" className="contactUsSection__button"> Create a FormBot for free </Link>
           <p className="contactUsSection__text">No trial. Generous free plan.</p>
         </div>
         <div className="contactUsSection__shape contactUsSection__shape--right"> <img src={halfcircle} alt="Triangle" /></div>

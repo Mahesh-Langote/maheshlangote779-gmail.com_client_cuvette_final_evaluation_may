@@ -38,7 +38,7 @@ export default function App() {
               </div>
             </div>
           } />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/workspace" element={<Dashboard />} />
           <Route path="/flow" element={<FormBuilder />} />
           <Route path="/flow/:formId" element={<FormBuilder />} />
           <Route path='/theme' element={<ThemePage />} />

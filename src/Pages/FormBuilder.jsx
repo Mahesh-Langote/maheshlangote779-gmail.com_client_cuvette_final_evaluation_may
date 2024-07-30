@@ -1,9 +1,9 @@
 // Pages/FormBuilder.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import FormHeader from '../components/FormHeader';
-import Sidebar from '../components/Sidebar';
-import Canvas from '../components/Canvas';
+import FormHeader from '../components/FormHeader/FormHeader';
+import Sidebar from '../components/SideBarCanvas/Sidebar';
+import Canvas from '../components/Canvas/Canvas';
 import '../styles/formBuilder.css';
 import useAuthenticatedApi from '../utils/useAuthenticatedApi';
 import API_ENDPOINTS from '../config/api';

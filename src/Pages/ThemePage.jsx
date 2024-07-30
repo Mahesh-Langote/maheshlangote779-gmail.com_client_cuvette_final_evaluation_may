@@ -1,9 +1,9 @@
 // Pages/ThemePage.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import FormHeader from '../components/FormHeader';
-import ThemeSelector from '../components/ThemeSelector';
-import ThemePreview from '../components/ThemePreview';
+import FormHeader from '../components/FormHeader/FormHeader';
+import ThemeSelector from '../components/Theme/ThemeSelector';
+import ThemePreview from '../components/Theme/ThemePreview';
 import useAuthenticatedApi from '../utils/useAuthenticatedApi';
 import API_ENDPOINTS from '../config/api';
 import '../styles/ThemePage.css';

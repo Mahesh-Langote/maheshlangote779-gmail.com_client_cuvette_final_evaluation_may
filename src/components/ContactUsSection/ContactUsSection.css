@@ -20,6 +20,7 @@
   
   .contactUsSection__button {
     background-color: #0052ff;
+    text-decoration: none;
     color: white;
     border: none;
     padding: 12px 24px;

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/CreateTypebot.css';
+import './CreateTypebot.css';
 
 function CreateTypebot() {
   return (

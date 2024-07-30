@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import ResponseSummary from '../components/ResponseSummary';
-import ResponseTable from '../components/ResponseTable';
+import ResponseSummary from '../components/Response/ResponseSummary';
+import ResponseTable from '../components/Response/ResponseTable';
 import '../styles/ResponsePage.css';
-import FormHeader from '../components/FormHeader';
+import FormHeader from '../components/FormHeader/FormHeader';
 import API_ENDPOINTS from '../config/api';
 
 function ResponsePage() {

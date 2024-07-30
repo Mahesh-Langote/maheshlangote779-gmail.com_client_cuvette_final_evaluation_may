@@ -1,10 +1,10 @@
 // components/CardGrid.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/CardGrid.css';
-import useAuthenticatedApi from '../utils/useAuthenticatedApi';
-import API_ENDPOINTS from '../config/api';
-import DeleteConfirmationModal from './DeleteConfirmationModal';
+import './CardGrid.css';
+import useAuthenticatedApi from '../../utils/useAuthenticatedApi';
+import API_ENDPOINTS from '../../config/api';
+import DeleteConfirmationModal from '../Modal/DeleteConfirmationModal';
 
 const CardGrid = ({ selectedFolderId, onDeleteForm }) => {
   const [forms, setForms] = useState([]);

@@ -1,6 +1,6 @@
 // components/CreateFolderModal.jsx
 import React, { useState } from 'react';
-import '../styles/Modal.css';
+import './Modal.css';
 
 const CreateFolderModal = ({ onClose, onCreateFolder }) => {
   const [folderName, setFolderName] = useState('');

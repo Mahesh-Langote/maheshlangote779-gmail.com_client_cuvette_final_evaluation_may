@@ -1,6 +1,6 @@
 // components/SharePopup.js
 import React, { useState } from 'react';
-import '../styles/sharePopup.css';
+import './sharePopup.css';
 
 function SharePopup({ formId, shareLink, onClose }) {
   const [copied, setCopied] = useState(false);
