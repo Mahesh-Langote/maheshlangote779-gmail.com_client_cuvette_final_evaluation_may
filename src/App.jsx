@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import axios from 'axios';
 import { AuthProvider } from './context/AuthContext';
 import LoginForm from './Pages/LoginForm';
 import SignupForm from './Pages/SignupForm';
@@ -19,6 +20,19 @@ import { useAuth } from './context/AuthContext';
 export default function App() {
   const [isLogin, setIsLogin] = useState(true);
   setupAxiosInterceptors();
+
+  useEffect(() => {
+    const wakeUpServer = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/serverison`);
+        console.log('Server is awake:', response.data);
+      } catch (error) {
+        console.error('Error waking up server:', error);
+      }
+    };
+
+    wakeUpServer();
+  }, []);
 
   const toggleForm = () => setIsLogin(!isLogin);
 
@@ -47,7 +61,8 @@ export default function App() {
           <Route path='/response' element={<ResponsePage />} />
           <Route path="/response/:formId" element={<ResponsePage />} />
           <Route path='/chat' element={<ChatBot />} />
-          <Route path="/api/forms/public/:formId" element={<ChatBot />} />
+          {/* <Route path="/api/forms/public/:formId" element={<ChatBot />} /> */}
+          <Route path="/chat/:formId" element={<ChatBot />} />
         </Routes>
       </Router>
     </AuthProvider>
