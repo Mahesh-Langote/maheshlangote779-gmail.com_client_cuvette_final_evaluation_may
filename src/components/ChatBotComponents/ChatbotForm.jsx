@@ -55,14 +55,12 @@ function ChatbotForm({ formId }) {
   }, [formId]);
 
   const fetchFormAndUniqueId = async () => {
-    if (fetchedRef.current) return; // Exit if already fetched
+    if (fetchedRef.current) return;
     fetchedRef.current = true;
-
+  
     try {
-      
-      const formResponse = await axios.get(API_ENDPOINTS.apiFormsPublic(formId)); 
-      // const formResponse = await axios.get(`http://localhost:5000/api/forms/public/${formId}`);
-      const formData = formResponse.data;
+      const formResponse = await axios.get(API_ENDPOINTS.apiFormsPublic(formId));
+      const formData = formResponse.data;  
       setForm(formData);
       setFormIdData(formData.id);
       setTheme(formData.background || 'Light'); 
