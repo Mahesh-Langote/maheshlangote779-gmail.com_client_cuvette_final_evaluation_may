@@ -36,7 +36,7 @@ const Dashboard = () => {
   }, [isLoggedIn, navigate, location]);
 
   if (!isLoggedIn) {
-    return null; // or a loading spinner
+    return null; 
   } 
   const fetchFolders = async () => {
     setIsLoading(true);

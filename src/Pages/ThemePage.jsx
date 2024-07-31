@@ -15,7 +15,7 @@ function ThemePage() {
   const { authenticatedFetch } = useAuthenticatedApi();
   const [formData, setFormData] = useState({
     title: '',
-    background: 'Light'
+    background: 'Dark'
   });
   const [isNewForm, setIsNewForm] = useState(false);
 

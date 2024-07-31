@@ -1,92 +1,228 @@
- 
-.form-element {
-    position: relative;
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  } 
-  
-  .warning {
-    background-color: #ffebee;
-    color: #c62828;
+:root {
+  --bg-primary: #1e1e1e;
+  --bg-secondary: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --accent-color: #61dafb;
+  --error-color: #ff6b6b;
+  --success-color: #4caf50;
+}
+.canvasBoard::-webkit-scrollbar {
+  display: none;
+} 
+.canvasBoard {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;   
+}
+.canvasBoard {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  overflow-y: auto;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.canvasBoard__warning {
+  background-color: rgba(255, 107, 107, 0.2);
+  color: var(--error-color);
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+
+.canvasBoard__description {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--bg-secondary);
+  border-radius: 4px;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 80px;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.canvasBoard__element {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid var(--bg-secondary);
+  border-radius: 8px;
+  background-color: var(--bg-secondary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.canvasBoard__elementHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.canvasBoard__input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--bg-secondary);
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.canvasBoard__input--label {
+  font-weight: bold;
+}
+
+.canvasBoard__input--error {
+  color: var(--error-color);
+}
+
+.canvasBoard__removeButton {
+  background-color: var(--error-color);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.canvasBoard__removeButton:hover {
+  background-color: #ff4d4d;
+}
+
+.canvasBoard__requiredLabel {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: var(--text-secondary);
+}
+
+.canvasBoard__checkbox {
+  margin-right: 8px;
+}
+
+.canvasBoard__options {
+  margin-top: 15px;
+}
+
+.canvasBoard__optionContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.canvasBoard__optionInput {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 8px;
+  border: 1px solid var(--bg-secondary);
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.canvasBoard__addOptionButton,
+.canvasBoard__removeOptionButton {
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.canvasBoard__addOptionButton:hover {
+  background-color: #45a049;
+}
+
+.canvasBoard__removeOptionButton {
+  background-color: var(--error-color);
+}
+
+.canvasBoard__removeOptionButton:hover {
+  background-color: #ff4d4d;
+}
+
+.canvasBoard__fieldOptions {
+  margin-top: 15px;
+}
+
+.canvasBoard__fieldOptions h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.canvasBoard__starRating {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.canvasBoard__starRating label {
+  margin-right: 10px;
+  color: var(--text-secondary);
+}
+
+.canvasBoard__starRating input {
+  width: 60px;
+  padding: 6px;
+  border: 1px solid var(--bg-secondary);
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.canvasBoard__mediaInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--bg-secondary);
+  border-radius: 4px;
+  font-size: 14px;
+  margin-top: 10px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+@media (max-width: 600px) {
+  .canvasBoard {
     padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    font-weight: bold;
   }
-  .element-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+  .canvasBoard__element {
+    padding: 15px;
+  }
+
+  .canvasBoard__optionContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .canvasBoard__optionInput {
+    margin-right: 0;
     margin-bottom: 10px;
   }
-  
-  .remove-button {
-    background: none;
-    border: none;
-    color: #ff4d4d;
-    font-size: 18px;
-    cursor: pointer;
-    padding: 5px;
+
+  .canvasBoard__removeOptionButton {
+    align-self: flex-end;
   }
-  
-  .remove-button:hover {
-    color: #ff0000;
-  }
-  
-  .option-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-  }
-  
-  .option-container input {
-    flex-grow: 1;
-    margin-right: 10px;
-  }
-  .canvas {
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    overflow-y: auto;
-    background-color: var(--bg-dark);
-  }
-  
-  .form-element {
-    /* width: 80%; */
-    padding: 15px;
-    background-color: var(--bg-lighter);
-    border-radius: 4px;
-    position: relative;
-  }
-  
-  .form-element h3 {
-    margin: 0 0 10px 0;
-    font-size: 14px;
-    font-weight: normal;
-  }
-  
-  .element-input {
-    /* width: 100%; */
-    padding: 8px;
-    background-color: var(--bg-input);
-    border: none;
-    border-radius: 4px;
-    color: var(--text-muted);
-    font-size: 12px;
-  }
-  
-  .element-handle {
-    position: absolute;
-    right: -20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 10px;
-    height: 10px;
-    background-color: var(--text-muted);
-    border-radius: 50%;
-  }
+}

@@ -59,24 +59,20 @@ function ChatbotForm({ formId }) {
     fetchedRef.current = true;
 
     try {
-     
-      // Fetch form data
+      
       const formResponse = await axios.get(API_ENDPOINTS.apiFormsPublic(formId)); 
       // const formResponse = await axios.get(`http://localhost:5000/api/forms/public/${formId}`);
       const formData = formResponse.data;
       setForm(formData);
       setFormIdData(formData.id);
-      setTheme(formData.background || 'Light');
-      
-      // Generate unique ID
+      setTheme(formData.background || 'Light'); 
       const uniqueIdResponse = await axios.get(API_ENDPOINTS.apiGenerateUniqueId(formId));
       setUniqueId(uniqueIdResponse.data.uniqueId);
-
-      // Set initial messages
+ 
       setMessages([
         { type: 'bot', content: 'Hello!' },
         { type: 'bot', content: `${formData.title}` },
-        { type: 'bot', content: `Form Description: ${formData.description}` },
+        { type: 'bot', content: `${formData.description}` },
       ]);
 
       console.log("Using form ID:", formData.id);
@@ -84,7 +80,7 @@ function ChatbotForm({ formId }) {
       console.error('Error fetching form and unique ID:', error);
       setMessages([{ type: 'bot', content: 'Error loading the form. Please try again later.' }]);
     } finally {
-      fetchedRef.current = true; // Ensure it's set to true even if there's an error
+      fetchedRef.current = true;  
     }
   };
   const askNextQuestion = (index) => {
@@ -123,7 +119,7 @@ function ChatbotForm({ formId }) {
       } catch (error) {
         console.error("Error during submission:", error);
         setMessages(prev => [...prev, { type: 'bot', content: "There was an error submitting your response. Please try again." }]);
-        return; // Exit the function early if there's an error
+        return;  
       }
       
       setCurrentFieldIndex(prev => prev + 1);
@@ -145,7 +141,7 @@ function ChatbotForm({ formId }) {
       try {
         console.log("Submitting form ID:", formIdData);
         const submissionData = {
-          formId: formIdData,  // This should now be the correct ID
+          formId: formIdData,  
           uniqueId: uniqueId,
           responses: newResponses
         };

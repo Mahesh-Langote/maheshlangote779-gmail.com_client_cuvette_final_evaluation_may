@@ -24,6 +24,7 @@ function FormHeader({ formName, onSave, onFormNameChange, authenticatedFetch }) 
       console.error('Error generating share link:', error);
     }
   };
+
   const handleTabClick = (tab) => {
     switch(tab) {
       case 'Flow':
@@ -36,53 +37,61 @@ function FormHeader({ formName, onSave, onFormNameChange, authenticatedFetch }) 
         navigate(`/response/${formId}`);
         break;
       default:
-        navigate('/dashboard');
+        navigate('/workspace');
     }
-    
   };
 
   return (
-    <header className="form-header">
+    <header className="dashboard-headerr">
       <input
         type="text"
         placeholder="Enter Form Name"
-        className="form-name-input"
+        className="dashboard-header__form-name-input"
         value={formName}
         onChange={(e) => onFormNameChange(e.target.value)}
       />
-      <div className="header-tabs">
+      <nav className="dashboard-header__nav">
         <button
-          className={`header-tab ${location.pathname.includes('/flow') ? 'active' : ''}`}
+          className={`dashboard-header__tab ${location.pathname.includes('/flow') ? 'active' : ''}`}
           onClick={() => handleTabClick('Flow')}
         >
           Flow
+          <span className="dashboard-header__tab-indicator"></span>
         </button>
         <button
-          className={`header-tab ${location.pathname.includes('/theme') ? 'active' : ''}`}
+          className={`dashboard-header__tab ${location.pathname.includes('/theme') ? 'active' : ''}`}
           onClick={() => handleTabClick('Theme')}
         >
           Theme
+          <span className="dashboard-header__tab-indicator"></span>
         </button>
         <button
-  className={`header-tab ${location.pathname.includes('/response') ? 'active' : ''}`}
-  onClick={() => handleTabClick('Response')}
->
-  Response
-</button>
+          className={`dashboard-header__tab ${location.pathname.includes('/response') ? 'active' : ''}`}
+          onClick={() => handleTabClick('Response')}
+        >
+          Response
+          <span className="dashboard-header__tab-indicator"></span>
+        </button>
+      </nav>
+      <div className="dashboard-header__actions">
+        <button className="dashboard-header__action-button dashboard-header__action-button--share" onClick={handleShare}>
+          <span className="dashboard-header__action-icon">🔗</span>
+          Share
+        </button>
+        <button className="dashboard-header__action-button dashboard-header__action-button--save" onClick={onSave}>
+          <span className="dashboard-header__action-icon">💾</span>
+          Save
+        </button>
+        <button className="dashboard-header__action-button dashboard-header__action-button--close" onClick={() => navigate('/workspace')}>✕</button>
       </div>
-      <div className="header-actions">
-      <button className="action-button" onClick={handleShare}>Share</button>
-      <button className="action-button save" onClick={onSave}>Save</button>
-      <button className="action-button close" onClick={() => navigate('/')}>✕</button>
-    </div>
-    {showSharePopup && (
-      <SharePopup
-        formId={formId}
-        shareLink={shareLink}
-        onClose={() => setShowSharePopup(false)}
-      />
-    )}
-  </header>
+      {showSharePopup && (
+        <SharePopup
+          formId={formId}
+          shareLink={shareLink}
+          onClose={() => setShowSharePopup(false)}
+        />
+      )}
+    </header>
   );
 }
 

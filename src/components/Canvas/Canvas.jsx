@@ -1,9 +1,14 @@
- 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+
 import './Canvas.css';
 
 function Canvas({ elements, setFormData, description, onDescriptionChange }) {
   const [warning, setWarning] = useState('');
+  const endOfCanvasRef = useRef(null);
+
+  useEffect(() => {
+    endOfCanvasRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [elements]);
 
   const updateElement = (id, updates) => {
     setFormData(prevData => ({
@@ -60,10 +65,10 @@ function Canvas({ elements, setFormData, description, onDescriptionChange }) {
       case 'Dropdown':
       case 'WordRating':
         return (
-          <div>
+          <div className="canvasBoard__fieldOptions">
             <h4>Options:</h4>
             {element.options.map((option, index) => (
-              <div key={index} className="option-container">
+              <div key={index} className="canvasBoard__optionContainer">
                 <input
                   type="text"
                   value={option}
@@ -72,21 +77,27 @@ function Canvas({ elements, setFormData, description, onDescriptionChange }) {
                     newOptions[index] = e.target.value;
                     updateElement(element.id, { options: newOptions });
                   }}
+                  className="canvasBoard__optionInput"
                 />
                 <button 
-                  className="remove-button"
+                  className="canvasBoard__removeOptionButton"
                   onClick={() => removeOption(element.id, index)}
                 >
                   ✕
                 </button>
               </div>
             ))}
-            <button onClick={() => addOption(element.id)}>Add Option</button>
+            <button 
+              className="canvasBoard__addOptionButton"
+              onClick={() => addOption(element.id)}
+            >
+              Add Option
+            </button>
           </div>
         );
       case 'StarRating':
         return (
-          <div>
+          <div className="canvasBoard__starRating">
             <label>
               Number of stars:
               <input
@@ -109,6 +120,7 @@ function Canvas({ elements, setFormData, description, onDescriptionChange }) {
               placeholder="Enter URL"
               value={element.url || ''}
               onChange={(e) => updateElement(element.id, { url: e.target.value })}
+              className="canvasBoard__mediaInput"
             />
           </div>
         );
@@ -118,25 +130,26 @@ function Canvas({ elements, setFormData, description, onDescriptionChange }) {
   };
 
   return (
-    <div className="canvas">
-      {warning && <div className="warning">{warning}</div>}
+    <div className="canvasBoard">
+      {warning && <div className="canvasBoard__warning">{warning}</div>}
       <textarea
-        className="form-description"
+        className="canvasBoard__description"
         placeholder="Enter form description"
         value={description}
         onChange={(e) => onDescriptionChange(e.target.value)}
       />
       {elements.map((element) => (
-        <div key={element.id} className="form-element">
-          <div className="element-header">
+        <div key={element.id} className="canvasBoard__element">
+          <div className="canvasBoard__elementHeader">
             <input
               type="text"
               placeholder="Enter label"
               value={element.label}
               onChange={(e) => updateElement(element.id, { label: e.target.value })}
+              className="canvasBoard__input canvasBoard__input--label"
             />
             <button 
-              className="remove-button"
+              className="canvasBoard__removeButton"
               onClick={() => removeField(element.id)}
             >
               ✕
@@ -147,18 +160,23 @@ function Canvas({ elements, setFormData, description, onDescriptionChange }) {
             placeholder="Enter error message"
             value={element.errorMessage}
             onChange={(e) => updateElement(element.id, { errorMessage: e.target.value })}
+            className="canvasBoard__input canvasBoard__input--error"
           />
-          <label>
+          <label className="canvasBoard__requiredLabel">
             <input
               type="checkbox"
               checked={element.required}
               onChange={(e) => updateElement(element.id, { required: e.target.checked })}
+              className="canvasBoard__checkbox"
             />
             Required
           </label>
-          {renderFieldOptions(element)}
+          <div className="canvasBoard__options">
+            {renderFieldOptions(element)}
+          </div>
         </div>
       ))}
+      <div ref={endOfCanvasRef} />
     </div>
   );
 }

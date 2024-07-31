@@ -5,17 +5,18 @@ import './sidebar.css';
 
 function Sidebar({ addElement }) {
   const bubbles = [
-    { type: 'Text', icon: '📝' },
-    { type: 'Image', icon: '🖼️' },
-    { type: 'Video', icon: '🎥' },
-    { type: 'GIF', icon: 'GIF' },
-  ];
-
-  const inputs = [
+    
+    // { type: 'Image', icon: '🖼️' },
+    // { type: 'Video', icon: '🎥' },
+    // { type: 'GIF', icon: 'GIF' },
     { type: 'Text', icon: 'T' },
     { type: 'Number', icon: '#' },
     { type: 'Email', icon: '@' },
     { type: 'Phone', icon: '📞' },
+  ];
+
+  const inputs = [
+   
     { type: 'Date', icon: '📅' },
     { type: 'Radio', icon: '🔘' },
     { type: 'Checkbox', icon: '☑️' },

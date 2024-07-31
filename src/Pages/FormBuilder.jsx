@@ -18,7 +18,7 @@ function FormBuilder() {
     title: '',
     description: '',
     fields: [],
-    background: 'Light',
+    background: 'Dark',
     folder: new URLSearchParams(location.search).get('folderId') || ''
   });
 
@@ -37,7 +37,7 @@ function FormBuilder() {
           ...field,
           id: field._id,
         })),
-        theme: data.theme || 'Light'
+        theme: data.theme || 'Dark'
       });
     } catch (error) {
       console.error('Error fetching form data:', error);
@@ -104,7 +104,7 @@ function FormBuilder() {
           body: JSON.stringify(dataToSend),
         });
       }
-      navigate('/dashboard');
+      navigate('/workspace');
     } catch (error) {
       console.error('Error saving form:', error);
     }

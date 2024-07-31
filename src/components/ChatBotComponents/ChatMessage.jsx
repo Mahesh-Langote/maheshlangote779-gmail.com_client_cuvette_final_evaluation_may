@@ -1,5 +1,4 @@
 
-// ChatMessage.jsx
 import React from 'react';
 
 function ChatMessage({ message }) {
