@@ -54,15 +54,22 @@ const CardGrid = ({ selectedFolderId, onDeleteForm }) => {
     navigate(`/flow/${formId}`);
   };
 
+  // const handleCreateForm = () => {
+  //   navigate(`/flow?folderId=${selectedFolderId}`);
+  // };
   const handleCreateForm = () => {
-    navigate(`/flow?folderId=${selectedFolderId}`);
+    if (selectedFolderId) {
+      navigate(`/flow?folderId=${selectedFolderId}`);
+    } else {
+      toast.error('Please select a folder before creating a typebot.');
+    }
   };
 
   return (
     <div className="card-grid">
       <div className="card create-typebot" onClick={handleCreateForm}>
         <span className="plus-icon">+</span>
-        <p>Create a typebot</p>
+        <p>{selectedFolderId ? 'Create a typebot' : 'Select a folder to create a typebot'}</p>
       </div>
 
       {forms.map((form) => (
