@@ -6,9 +6,9 @@ import './sidebar.css';
 function Sidebar({ addElement }) {
   const bubbles = [
     
-    // { type: 'Image', icon: '🖼️' },
-    // { type: 'Video', icon: '🎥' },
-    // { type: 'GIF', icon: 'GIF' },
+    { type: 'Image', icon: '🖼️' },
+    { type: 'Video', icon: '🎥' },
+    { type: 'GIF', icon: 'GIF' },
     { type: 'Text', icon: 'T' },
     { type: 'Number', icon: '#' },
     { type: 'Email', icon: '@' },
